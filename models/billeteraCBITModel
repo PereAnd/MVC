@@ -1,0 +1,31 @@
+const {sequilize} = require("../../config/mysql");
+const {DataTypes} = require("sequilize");
+
+const BilleteraCBITBank = sequilize.define(
+    "Billetera_CBITBank",{
+        user:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        password:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        estado:{
+            type: DataTypes.ENUM,
+            allowNull: false
+        },
+        fechaCreacion:{
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        numeroBilletera:{
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    },
+    {
+        timestamps: true
+    }
+);
+module.exports = BilleteraCBITBank;
