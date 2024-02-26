@@ -1,0 +1,15 @@
+const {sequilize} = require("../../config/mysql");
+const {DataTypes} = require("sequilize");
+
+const Estado =  sequilize.define(
+    "Estado",{
+        nombre:{
+            type: DataTypes.STRING,
+            allowNull:false
+        }
+    },{
+        timestamps: true
+    }
+);
+
+module.exports.Estado;
