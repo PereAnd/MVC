@@ -1,7 +1,7 @@
-const {sequilize} = require("../../config/mysql");
-const {DataTypes} = require("sequilize");
+const {sequelize} = require("../config/mysql");
+const {DataTypes} = require("sequelize");
 
-const TyC = sequilize.define(
+const TyC = sequelize.define(
     "Terminos_Condiciones",
     {
         nombreDoc: {

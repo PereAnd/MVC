@@ -8,6 +8,10 @@ const app = express();
 app.use(cors())
 const port = process.env.PORT || 3000;
 
+//invocacion de rutas
+
+app.use("/api", require("./routes"));
+
 app.listen(port, () =>
   console.log(`Tu server esta listo por el puerto ${port}`)
 );

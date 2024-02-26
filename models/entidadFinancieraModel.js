@@ -1,10 +1,10 @@
-const {sequilize} = require("../../config/mysql");
-const {DataTypes} = require("sequilize");
+const {sequelize} = require("../config/mysql");
+const {DataTypes} = require("sequelize");
 
-const EntidadFinanciera = sequilize.define(
+const EntidadFinanciera = sequelize.define(
     "Entidad_Financiera",{
         nombre:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         nit:{
@@ -12,7 +12,7 @@ const EntidadFinanciera = sequilize.define(
             allowNull: false
         },
         tipoEntidadFinanciera:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull: false
         }
     },

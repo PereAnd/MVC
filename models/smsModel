@@ -1,7 +1,7 @@
-const {sequilize} = require("../../config/mysql");
-const {DataTypes} = require("sequilize");
+const {sequelize} = require("../config/mysql");
+const {DataTypes} = require("sequelize");
 
-const SMS =  sequilize.define(
+const SMS =  sequelize.define(
     "SMS",{
         body:{
             type: DataTypes.STRING,
@@ -16,11 +16,11 @@ const SMS =  sequilize.define(
             allowNull:false
         },
         ordenCompra:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull:false
         },
         cliente:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull:false
         }
     },{

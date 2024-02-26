@@ -1,7 +1,7 @@
-const {sequilize} = require("../../config/mysql");
-const {DataTypes} = require("sequilize");
+const {sequelize} = require("../config/mysql");
+const {DataTypes} = require("sequelize");
 
-const Cuenta = sequilize.define(
+const Cuenta = sequelize.define(
     "M_Cuenta",{
         usuario:{
             type: DataTypes.STRING,
@@ -16,17 +16,17 @@ const Cuenta = sequilize.define(
             allowNull: false
         },
         entidadFinanciera:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         token:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
         },
         estadoCuenta:{
-            type: DataTypes.ENUM(["habilitada","deshabilitada"])
+            type: DataTypes.INTEGER
         },
         cliente:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull: false
         }
     },

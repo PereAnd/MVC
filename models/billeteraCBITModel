@@ -1,7 +1,8 @@
-const {sequilize} = require("../../config/mysql");
-const {DataTypes} = require("sequilize");
+const {sequelize} = require("../config/mysql");
+const {DataTypes} = require("sequelize");
 
-const BilleteraCBITBank = sequilize.define(
+
+const BilleteraCBITBank = sequelize.define(
     "Billetera_CBITBank",{
         user:{
             type: DataTypes.STRING,
@@ -12,7 +13,7 @@ const BilleteraCBITBank = sequilize.define(
             allowNull: false
         },
         estado:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         fechaCreacion:{

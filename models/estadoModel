@@ -1,7 +1,7 @@
-const {sequilize} = require("../../config/mysql");
-const {DataTypes} = require("sequilize");
+const {sequelize} = require("../config/mysql");
+const {DataTypes} = require("sequelize");
 
-const Estado =  sequilize.define(
+const Estado =  sequelize.define(
     "Estado",{
         nombre:{
             type: DataTypes.STRING,

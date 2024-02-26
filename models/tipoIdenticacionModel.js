@@ -1,10 +1,10 @@
-const {sequilize} = require("../../config/mysql");
-const {DataTypes} = require("sequilize");
+const {sequelize} = require("../config/mysql");
+const {DataTypes} = require("sequelize");
 
-const TipoIdentificacion = sequilize.define(
+const TipoIdentificacion = sequelize.define(
     "TipoIdentificacion",{
         codigo:{
-            type: DataTypes.ENUM,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         nombre:{
