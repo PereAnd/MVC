@@ -23,10 +23,19 @@ const OrdenCompra = sequilize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        idCliente:{
+        cliente:{
+            type: DataTypes.ENUM,
+            allowNull: false
+        },
+        estado:{
+            type: DataTypes.ENUM,
+            allowNull: false
+        },
+        ecommerce:{
             type: DataTypes.ENUM,
             allowNull: false
         }
+
     },
     {
         timestamps: true

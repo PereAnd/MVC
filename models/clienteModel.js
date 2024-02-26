@@ -43,7 +43,7 @@ const Cliente = sequilize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        idBilletera:{
+        Billetera:{
             type: DataTypes.ENUM,
             allowNull: false
         }

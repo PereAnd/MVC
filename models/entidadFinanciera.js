@@ -11,7 +11,7 @@ const EntidadFinanciera = sequilize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        idTipoEntidadFinanciera:{
+        tipoEntidadFinanciera:{
             type: DataTypes.ENUM,
             allowNull: false
         }

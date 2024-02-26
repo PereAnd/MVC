@@ -15,8 +15,19 @@ const Cuenta = sequilize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
+        entidadFinanciera:{
+            type: DataTypes.ENUM,
+            allowNull: false
+        },
+        token:{
+            type: DataTypes.ENUM,
+        },
         estadoCuenta:{
             type: DataTypes.ENUM(["habilitada","deshabilitada"])
+        },
+        cliente:{
+            type: DataTypes.ENUM,
+            allowNull: false
         }
     },
     {
