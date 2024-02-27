@@ -1,7 +1,7 @@
 const { entidadFModel } = require("../models/indexModel");
 
 const getEntidadesFinancieras = async (req, res) => {
-  const data = ["Entidades", "Financieras"];
+  const data = await entidadFModel.findAll();
   res.send({ data });
 };
 
