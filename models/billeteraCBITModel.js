@@ -1,32 +1,34 @@
-const {sequelize} = require("../config/mysql");
-const {DataTypes} = require("sequelize");
-
+const { sequelize } = require("../config/mysql");
+const { DataTypes } = require("sequelize");
 
 const BilleteraCBITBank = sequelize.define(
-    "Billetera_CBITBank",{
-        user:{
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        password:{
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        estado:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        fechaCreacion:{
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-        numeroBilletera:{
-            type: DataTypes.STRING,
-            allowNull: false
-        }
+  "Billetera_CBITBank",
+  {
+    idBilletera_CBITBank: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
     },
-    {
-        timestamps: true
-    }
+    user: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    numeroBilletera: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    idEstado_BilleteraCBIT: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
 module.exports = BilleteraCBITBank;
