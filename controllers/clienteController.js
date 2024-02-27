@@ -31,7 +31,22 @@ const createCliente = async(req,res) => {
  * @param {*} req 
  * @param {*} res 
  */
-const updateCliente = (req,res)=>{};
+const updateCliente = async(req,res)=>{
+    try{
+        req = matchedData(req);
+        const {body} = req;
+        const data = await clienteModel.findOneAndUpdate(
+            id,
+            body,
+            {
+                new:true
+            }
+        );
+        res.send({data});
+    } catch(e){
+        handleHttpError(res, e);
+    }
+};
 /**
  * Borrar Cliente
  * @param {*} req 
