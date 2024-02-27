@@ -19,7 +19,10 @@ const sequelize = new Sequelize({
   port: port,
   username: username,
   password: password,
-  database: database
+  database: database,
+  define: {
+    freezeTableName: true
+  }
 });
 
 const dbConnectMySQL = async () => {
