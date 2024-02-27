@@ -2,7 +2,13 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const Cliente = sequelize.define(
-    "CLiente",{
+    "cliente",{
+        idCliente:{
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
         primerNombre:{
             type: DataTypes.STRING,
             allowNull: false
@@ -23,7 +29,7 @@ const Cliente = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        tipoIdentificacion:{
+        idTipoIdentificacion:{
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -43,13 +49,10 @@ const Cliente = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        billetera:{
+        idBilleteraCBITBank:{
             type: DataTypes.INTEGER,
             allowNull: false
         }
-    },
-    {
-        timestamps: true
     }
 );
 module.exports = Cliente;

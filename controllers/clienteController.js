@@ -23,7 +23,8 @@ const getCliente = (req,res) =>{};
 const createCliente = async(req,res) => {
     const {body} = req
     console.log(body);
-    res.send({algo:1});
+    const data = await clienteModel.create(body)
+    res.send({data});
 };
 /**
  * Modificar Cliente
