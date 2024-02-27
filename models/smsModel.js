@@ -3,6 +3,12 @@ const {DataTypes} = require("sequelize");
 
 const SMS =  sequelize.define(
     "SMS",{
+        idSMS: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false
+        },
         body:{
             type: DataTypes.STRING,
             allowNull:false
@@ -15,11 +21,7 @@ const SMS =  sequelize.define(
             type: DataTypes.STRING,
             allowNull:false
         },
-        ordenCompra:{
-            type: DataTypes.INTEGER,
-            allowNull:false
-        },
-        cliente:{
+        idOrdenCompra:{
             type: DataTypes.INTEGER,
             allowNull:false
         }

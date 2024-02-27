@@ -3,39 +3,20 @@ const {DataTypes} = require("sequelize");
 
 const OrdenCompra = sequelize.define(
     "OrdenCompra",{
-        costoTotal:{
+        idOrdenCompra_TyC:{
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        idOrdenCompra:{
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        estado:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        codigoOTP:{
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        numeroAprobacion:{
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        observaciones:{
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        cliente:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        estado:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        ecommerce:{
+        idTyC:{
             type: DataTypes.INTEGER,
             allowNull: false
         }
-
     },
     {
         timestamps: true

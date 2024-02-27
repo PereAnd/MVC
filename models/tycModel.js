@@ -2,8 +2,14 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const TyC = sequelize.define(
-    "Terminos_Condiciones",
+    "terminos_condiciones",
     {
+        idTyC:{
+            type: DataTypes.INTEGER,
+            allowNull:false,
+            primaryKey: true,
+            autoIncrement: true
+        },
         nombreDoc: {
             type: DataTypes.STRING,
             allowNull: false
@@ -11,7 +17,7 @@ const TyC = sequelize.define(
         archivo:{ 
             type: DataTypes.STRING
         }, 
-        aceptacionTyC: {
+        aceptacionDoc: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         }

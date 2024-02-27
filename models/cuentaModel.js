@@ -2,7 +2,13 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const Cuenta = sequelize.define(
-    "M_Cuenta",{
+    "cuenta",{
+        idCuenta:{
+            type: DataTypes.STRING,
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true
+        },
         usuario:{
             type: DataTypes.STRING,
             allowNull: false
@@ -15,17 +21,19 @@ const Cuenta = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        entidadFinanciera:{
+        idEntidadFinanciera:{
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        token:{
+        idToken:{
             type: DataTypes.INTEGER,
+            allowNull: false
         },
-        estadoCuenta:{
-            type: DataTypes.INTEGER
+        idEstado_Cuenta:{
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
-        cliente:{
+        idCliente:{
             type: DataTypes.INTEGER,
             allowNull: false
         }
@@ -34,7 +42,7 @@ const Cuenta = sequelize.define(
         timestamps: true
     }
 );
-
+/*
 function obtenerCuenta (nCuenta){
     //falta llamar objeto persistencia y pasarle el query
     let query = "SELECT * FROM M_Cuenta c WHERE c.numeroCuenta =="+nCuenta+"";
@@ -48,6 +56,6 @@ function crearCuenta(usu, pass, nCuenta, eCuenta){
         console.log(result);
     });
 }
-
+*/
    // export {obtenerCuenta,crearCuenta}
 module.exports = Cuenta;

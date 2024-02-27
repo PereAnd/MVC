@@ -3,11 +3,17 @@ const {DataTypes} = require("sequelize");
 
 const TipoIdentificacion = sequelize.define(
     "TipoIdentificacion",{
-        codigo:{
+        idTipoIdentificacion:{
             type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
             allowNull: false
         },
         nombre:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        codigo:{
             type: DataTypes.STRING,
             allowNull: false
         }

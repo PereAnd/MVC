@@ -3,7 +3,13 @@ const {DataTypes} = require("sequelize");
 
 const Estado =  sequelize.define(
     "Estado",{
-        nombre:{
+        idEstado:{
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+        nombreEstado:{
             type: DataTypes.STRING,
             allowNull:false
         }

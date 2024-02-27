@@ -2,7 +2,13 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const Ecommerce =  sequelize.define(
-    "Ecommerce",{
+    "ecommerce",{
+        idEcommerce:{
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
         nombre:{
             type: DataTypes.STRING,
             allowNull:false
