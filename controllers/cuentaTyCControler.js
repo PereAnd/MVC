@@ -24,7 +24,7 @@ const createCuentaTyC = async(req,res) => {
     const {body} = req
     console.log(body);
     const data = await clienteModel.create(body)
-    res.send({data});
+    res.send(data);
 };
 /**
  * Modificar Entorno CuentaTyC

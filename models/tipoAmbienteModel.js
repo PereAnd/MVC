@@ -16,4 +16,4 @@ const tipoAmbiente = sequelize.define("Tipo_Ambiente",
 ,{
     timestamps: true
 });
-module.exports.error;
+module.exports = tipoAmbiente;

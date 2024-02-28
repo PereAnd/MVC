@@ -34,5 +34,5 @@ const entornoTrabajo = sequelize.define("Entorno_Trabajo",
 ,{
     timestamps: true
 });
-module.exports.entornoTrabajo;
+module.exports = entornoTrabajo;
 

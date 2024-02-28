@@ -9,7 +9,7 @@ const models ={
     smsModel: require('./smsModel'),
     tipoIdenModel: require('./tipoIdenticacionModel'),
     tycModel: require('./tycModel'),
-    tipoAmbienteModel: require('/tipoAmbienteModel'),
+    tipoAmbienteModel: require('./tipoAmbienteModel'),
     errorModel: require('./errorModel'),
     entornoTrabajoModel: require('./entornoTrabajoModel'),
     cuentasTyCModel: require('./cuentasTyCModel')
