@@ -8,7 +8,11 @@ const models ={
     ordenCompraModel: require('./ordenCompraModel'),
     smsModel: require('./smsModel'),
     tipoIdenModel: require('./tipoIdenticacionModel'),
-    tycModel: require('./tycModel')
+    tycModel: require('./tycModel'),
+    tipoAmbienteModel: require('/tipoAmbienteModel'),
+    errorModel: require('./errorModel'),
+    entornoTrabajoModel: require('./entornoTrabajoModel'),
+    cuentasTyCModel: require('./cuentasTyCModel')
 }
 
 module.exports = models;
