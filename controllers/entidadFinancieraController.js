@@ -20,7 +20,7 @@ const createEntidadFinanciera = async (req, res) => {
   const { body } = req;
   console.log(body);
   const data = await entidadFModel.create(body);
-  res.send({ data });
+  res.send( data );
 };
 
 const updateEntidadFinanciera = async (req, res) => {

@@ -1,37 +1,37 @@
-const {clienteModel} = require("../models/indexModel");
+const {entornoTrabajoModelModel} = require("../models/indexModel");
 
 /**
- * Obtener lista de la base de datos cliente
+ * Obtener lista de la base de datos EntornoTrabajo
  * @param {*} req 
  * @param {*} res 
  */
-const getClientes =  async(req, res)=>{
+const getEntornoTrabajos =  async(req, res)=>{
     const data = ["Hola","mundo"]
     res.send({data})
 };
 /**
- * Obtener un cliente
+ * Obtener un Entorno Trabajo
  * @param {*} req 
  * @param {*} res 
  */
-const getCliente = (req,res) =>{};
+const getEntornoTrabajo = (req,res) =>{};
 /**
- * crear un cliente
+ * crear un Entorno Trabajo
  * @param {*} req 
  * @param {*} res 
  */
-const createCliente = async(req,res) => {
+const createEntornoTrabajo = async(req,res) => {
     const {body} = req
     console.log(body);
     const data = await clienteModel.create(body)
     res.send({data});
 };
 /**
- * Modificar Cliente
+ * Modificar Entorno Trabajo
  * @param {*} req 
  * @param {*} res 
  */
-const updateCliente = async(req,res)=>{
+const updateEntornoTrabajo = async(req,res)=>{
     try{
         req = matchedData(req);
         const {body} = req;
@@ -48,10 +48,10 @@ const updateCliente = async(req,res)=>{
     }
 };
 /**
- * Borrar Cliente
+ * Borrar Entorno Trabajo
  * @param {*} req 
  * @param {*} res 
  */
-const deleteCliente = (req,res)=>{};
+const deleteEntornoTrabajo = (req,res)=>{};
 
-module.exports = {getClientes,getCliente,createCliente,updateCliente,deleteCliente}
+module.exports = {getEntornoTrabajos,getEntornoTrabajo,createEntornoTrabajo,updateEntornoTrabajo,deleteEntornoTrabajo}
