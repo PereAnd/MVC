@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const {getClientes, createCliente, updateCliente} = require("../controllers/clienteController");
+const {getClientes, createCliente, updateCliente,deleteCliente} = require("../controllers/clienteController");
 // se complementa con la url de app.js
-router.get("/", getClientes);
+router.get("/:id", getCliente);
+router.get("/"),getClientes;
 router.post("/",createCliente);
-router.put("/",updateCliente);
+router.put("/:id",updateCliente);
+router.delete("/:id",deleteCliente);
 
 module.exports = router;

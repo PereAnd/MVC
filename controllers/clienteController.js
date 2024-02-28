@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const {clienteModel} = require("../models/indexModel");
 
 /**
@@ -6,21 +7,33 @@ const {clienteModel} = require("../models/indexModel");
  * @param {*} res 
  */
 const getClientes =  async(req, res)=>{
-    const data = ["Hola","mundo"]
-    res.send({data})
+    
+    
 };
 /**
  * Obtener un cliente
  * @param {*} req 
  * @param {*} res 
  */
-const getCliente = (req,res) =>{};
+const getCliente = async(req,res) =>{
+    const idClienteF = req.params.body;
+    const cliente = await clienteModel.findOne({
+        where: {
+             idCliente : idClienteF
+        }
+    });
+    if(!cliente){
+        res.status(404).send("No se encontró el Cliente, con el nombre "+cliente.primerNombre);
+    }
+    res.send(cliente);
+};
 /**
  * crear un cliente
  * @param {*} req 
  * @param {*} res 
  */
 const createCliente = async(req,res) => {
+    
     const {body} = req
     console.log(body);
     const data = await clienteModel.create(body)
@@ -33,18 +46,34 @@ const createCliente = async(req,res) => {
  */
 const updateCliente = async(req,res)=>{
     try{
-        req = matchedData(req);
-        const {body} = req;
-        const data = await clienteModel.findOneAndUpdate(
-            id,
-            body,
-            {
-                new:true
+        const idClienteF = req.params.id;
+        const cliente = await clienteModel.findOne({
+            where: {
+                //atr bd : const
+                idCliente : idClienteF
             }
-        );
-        res.send({data});
+        });
+        if(!cliente){
+            res.status(404).send({ error: "No se encontro el Cliente!!!"});
+        }
+        let {primerNombre, segundoNombre, primerApellido, segundoApellido,numeroIdentificacion,idTipoIdentificacion,telefono,email, IP,idBilleteraCBITBank} = req.body;
+        cliente.primerNombre = primerNombre;
+        cliente.segundoNombre = segundoNombre;
+        cliente.primerApellido = primerApellido;
+        cliente.segundoApellido = segundoApellido;
+        cliente.numeroIdentificacion = numeroIdentificacion;
+        cliente.idTipoIdentificacion = idTipoIdentificacion;
+        cliente.telefono = telefono;
+        cliente.email = email;
+        cliente.IP = IP;
+        cliente.idBilleteraCBITBank = idBilleteraCBITBank;
+        
+        await cliente.save();
+        res.send(cliente);
     } catch(e){
-        handleHttpError(res, e);
+       res.send({
+         mensaje: "No se pudo realizar la actualización sobre el id"
+       });
     }
 };
 /**
@@ -52,6 +81,24 @@ const updateCliente = async(req,res)=>{
  * @param {*} req 
  * @param {*} res 
  */
-const deleteCliente = (req,res)=>{};
+const deleteCliente = async(req,res)=>{
+    try{
+        const idCliente = req.params.id;
+        const cliente = await clienteModel.findOne({
+            where: {
+                idCliente : idCliente
+            }
+        });
+        if(!cliente){
+            res.status(404).send({error:"No se encontro el Cliente!!!"});
+        }
+        await cliente.destroy();
+        res.send({mensaje: "eL cliente "+cliente.primerNombre+" ha sido eliminado correctament!!!"});
+    } catch(e){
+       res.send({
+         mensaje: "No se pudo realizar borrado sobre el cliente"+cliente.primerNombre
+       });
+    }
+};
 
 module.exports = {getClientes,getCliente,createCliente,updateCliente,deleteCliente}
