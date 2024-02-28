@@ -52,6 +52,6 @@ const updateEntornoTrabajo = async(req,res)=>{
  * @param {*} req 
  * @param {*} res 
  */
-const deleteTipoAmbiente = (req,res)=>{};
+const deleteEntornoTrabajo = (req,res)=>{};
 
 module.exports = {getEntornoTrabajos,getEntornoTrabajo,createEntornoTrabajo,updateEntornoTrabajo,deleteEntornoTrabajo}

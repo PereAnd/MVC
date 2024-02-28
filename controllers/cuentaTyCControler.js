@@ -52,6 +52,6 @@ const updateCuentaTyC = async(req,res)=>{
  * @param {*} req 
  * @param {*} res 
  */
-const deleteTipoAmbiente = (req,res)=>{};
+const deleteCuentaTyC = (req,res)=>{};
 
 module.exports = {getCuentaTyCs,getCuentaTyC,createCuentaTyC,updateCuentaTyC,deleteCuentaTyC}
