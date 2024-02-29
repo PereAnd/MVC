@@ -1,59 +1,77 @@
 const { clienteModel } = require("../models/indexModel");
 
-/**
- * Obtener lista de la base de datos cliente
- * @param {*} req
- * @param {*} res
- */
 const getClientes = async (req, res) => {
-  const data = ["Hola", "mundo"];
-  res.send({ data });
+  const data = await clienteModel.findAll();
+  res.send(data);
 };
-/**
- * Obtener un cliente
- * @param {*} req
- * @param {*} res
- */
-const getCliente = (req, res) => {};
-/**
- * crear un cliente
- * @param {*} req
- * @param {*} res
- */
+
+const getCliente = async (req, res) => {
+  const id = req.params.id;
+  const data = await clienteModel.findOne({
+    where: {
+      idCliente: id,
+    },
+  });
+  if (!data) return res.status(404).send({ error: "Cliente no encontrado" });
+  res.send(data);
+};
+
 const createCliente = async (req, res) => {
   const { body } = req;
   console.log(body);
+  const clienteRepetido = await clienteModel.findOne({
+    where: {
+      numeroIdentificacion: body.numeroIdentificacion,
+    },
+  });
+  if (clienteRepetido) return res.status(400).send({ error: "El número de identificación ya se encuentra registrado" });
   const data = await clienteModel.create(body);
   res.send( data );
 };
-/**
- * Modificar Cliente
- * @param {*} req
- * @param {*} res
- */
+
 const updateCliente = async (req, res) => {
-  try {
-    req = matchedData(req);
-    const { body } = req;
-    const data = await clienteModel.findOneAndUpdate(id, body, {
-      new: true,
-    });
-    res.send({ data });
-  } catch (e) {
-    handleHttpError(res, e);
-  }
+  const id = req.params.id;
+  let cliente = await clienteModel.findOne({
+    where: {
+      idCliente: id,
+    },
+  });
+  if (!cliente)
+    return res.status(404).send({ error: "Cliente no encontrado" });
+  let { primerNombre, segundoNombre, primerApellido, segundoApellido, numeroIdentificacion, idTipoIdentificacion, telefono, email, direccion, IP } = req.body;
+
+  cliente.primerNombre = primerNombre;
+  cliente.segundoNombre = segundoNombre;
+  cliente.primerApellido = primerApellido;
+  cliente.segundoApellido = segundoApellido;
+  cliente.numeroIdentificacion = numeroIdentificacion;
+  cliente.idTipoIdentificacion = idTipoIdentificacion;
+  cliente.telefono = telefono;
+  cliente.email = email;
+  cliente.direccion = direccion;
+  cliente.IP = IP;
+  
+  await cliente.save();
+  res.send(cliente);
 };
-/**
- * Borrar Cliente
- * @param {*} req
- * @param {*} res
- */
-const deleteCliente = (req, res) => {};
+
+const deleteCliente = async (req, res) => {
+  const id = req.params.id;
+  const cliente = await clienteModel.findOne({
+    where: {
+      idCliente: id,
+    },
+  });
+  if (!cliente)
+    return res.status(404).send({ error: "Cliente no encontrado" });
+	await cliente.destroy();
+  res.send({message: 'Cliente eliminado correctamente'});
+};
 
 module.exports = {
-  getClientes,
   getCliente,
+  getClientes,
   createCliente,
   updateCliente,
-  deleteCliente,
+  deleteCliente
 };
