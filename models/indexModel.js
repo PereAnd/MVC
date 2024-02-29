@@ -4,6 +4,7 @@ const models ={
     cuentaModel: require('./cuentaModel'),
     ecommerceModel: require('./ecommerceModel'),
     entidadFModel: require('./entidadFinancieraModel'),
+    tipoEntidadFModel: require('./tipoEntidadFModel'),
     ordenCxTyCModel: require('./ordenCompra_X_TyCModel'),
     ordenCompraModel: require('./ordenCompraModel'),
     smsModel: require('./smsModel'),
