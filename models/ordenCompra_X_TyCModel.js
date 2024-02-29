@@ -1,8 +1,8 @@
 const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
-const OrdenCompra = sequelize.define(
-    "OrdenCompra",{
+const OrdenCompra_TyC = sequelize.define(
+    "ordencompra_x_tyc",{
         idOrdenCompra_TyC:{
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -22,4 +22,4 @@ const OrdenCompra = sequelize.define(
         timestamps: true
     }
 );
-module.exports = OrdenCompra;
+module.exports = OrdenCompra_TyC;
