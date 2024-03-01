@@ -40,7 +40,6 @@ const getCuentas = async(req,res)=>{
     catch(e){
         res.status(404).send(e);
     }
-
 };
 /**
  * crear una cuenta financiera
