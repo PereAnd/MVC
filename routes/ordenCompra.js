@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router;
+const router = express.Router();
 
 const {
     getOrdenCompra,
@@ -9,8 +9,8 @@ const {
     deleteOrdenCompra
 } = require("../controllers/OrdenCompraController");
 
-router.get('/',getOrdenCompra);
-router.get('/:id',getOrdenesCompras);
+router.get('/:id',getOrdenCompra);
+router.get('/',getOrdenesCompras);
 router.post('/',createOrdenCompra);
 router.put('/:id',updateOrdenCompra);
 router.delete('/:id',deleteOrdenCompra);

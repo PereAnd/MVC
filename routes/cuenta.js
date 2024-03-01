@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router;
+const router = express.Router();
 
 const {
     getCuenta,
@@ -9,8 +9,8 @@ const {
     deleteCuenta
 } = require("../controllers/CuentaController");
 
-router.get('/',getCuenta);
-router.get('/:id',getCuentas);
+router.get('/:id',getCuenta);
+router.get('/',getCuentas);
 router.post('/',createCuenta);
 router.put('/:id',updateCuenta);
 router.delete('/:id',deleteCuenta);

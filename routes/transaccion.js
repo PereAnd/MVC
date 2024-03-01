@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router;
+const router = express.Router();
 
 const {
     getTransaccion,
@@ -7,8 +7,8 @@ const {
     createTransaccion
 } = require("../controllers/TransaccionController");
 
-router.get('/',getTransaccion);
-router.get('/:id',getTransacciones);
+router.get('/:id',getTransaccion);
+router.get('/',getTransacciones);
 router.post('/',createTransaccion);
 
 module.exports = router;
