@@ -5,53 +5,116 @@ const {cuentasTyCModel} = require("../models/indexModel");
  * @param {*} req 
  * @param {*} res 
  */
-const getCuentaTyCs =  async(req, res)=>{
-    const data = ["Hola","mundo"]
-    res.send({data})
+const getCuentaTyCs =  async (req, res)=>{
+    try{
+        const data = await cuentasTyCModel.findAll();
+        if(data==null){
+            res.status(404).send({
+                message: "No se han encontrado cuentas TyC."
+            });
+        }else{
+            res.status(200).send(data)
+        }
+    }catch(e){
+        res.status(404).send(e);
+    }
 };
 /**
- * Obtener un Entorno CuentaTyC
+ * Obtener una CuentaTyC
  * @param {*} req 
  * @param {*} res 
  */
-const getCuentaTyC = (req,res) =>{};
+const getCuentaTyC = async(req,res) =>{
+    try{
+        const id = req.params.id;
+        const data = await cuentasTyCModel.findOne({
+            where:{
+                idCuenta_TyC: id,
+            },
+    });
+    if (!data){ 
+        res.status(404).send({ error: "Cuenta TyC no encontrada"});    
+    }else{
+        res.status(200).send(data);
+    }
+    }catch(e){
+
+    }
+};
 /**
- * crear un Entorno CuentaTyC
+ * crear una CuentaTyC
  * @param {*} req 
  * @param {*} res 
  */
 const createCuentaTyC = async(req,res) => {
-    const {body} = req
-    console.log(body);
-    const data = await clienteModel.create(body)
-    res.send(data);
+    try{
+        const { body } = req.params.body;
+        if(!body){
+            res.status(404).send("Parametros de creación cuenta tyc vacios.");
+        }else{
+            const data = await cuentasTyCModel.create(body);
+            res.status(200).send(data)
+        }
+    } catch(e){
+        res.status(404).send({message:"No se pudo crear cuenta tyc."});
+    }
 };
 /**
- * Modificar Entorno CuentaTyC
+ * Modificar CuentaTyC
  * @param {*} req 
  * @param {*} res 
  */
 const updateCuentaTyC = async(req,res)=>{
     try{
-        req = matchedData(req);
-        const {body} = req;
-        const data = await clienteModel.findOneAndUpdate(
-            id,
-            body,
-            {
-                new:true
-            }
-        );
-        res.send({data});
-    } catch(e){
-        handleHttpError(res, e);
+        const id = req.params.id;
+        const cuentaTyC = await cuentaTyCController.findOne({
+            where: {
+                idCuenta_TyC: id,
+            },
+        });
+        if (!cuentaTyC){
+            return res.status(404).send({ error: "Cuenta TyC no encontrada." })
+        }else{
+            let { body } = req.params.body;
+            cuentaTyC.idCuenta = body.idCuenta;
+            cuentaTyC.idTyC = body.idTyC;       
+            await cuentaTyC.save();
+            res.status(200).send({
+                message:"La cuenta tyc ha sido modificada."
+            });
+        }
+    }catch(e){
+        res.status(404).send(e);
     }
 };
 /**
- * Borrar Entorno CuentaTyC
+ * Borrar CuentaTyC
  * @param {*} req 
  * @param {*} res 
  */
-const deleteCuentaTyC = (req,res)=>{};
+const deleteCuentaTyC = async(req,res)=>{
+    try{
+        const id = req.params.idcuenta_TyC
+        const cuentaTyC = await cuentasTyCModel.findOne({
+            where:{
+                idCuenta_TyC: id,
+            }
+        });
+        if (!cuentaTyC){
+            return res.status(404).send({ error: "Cuenta TyC no encontrada." });
+        }else{
+            await cuentaTyC.destroy();
+            res.send({message: 'Cuenta TyC eliminada correctamente'})
+        }
+    }catch(e){
+        res.status(404).send(e)
+    }
+};
 
-module.exports = {getCuentaTyCs,getCuentaTyC,createCuentaTyC,updateCuentaTyC,deleteCuentaTyC}
+module.exports = {
+    getCuentaTyCs,
+    getCuentaTyC,
+    createCuentaTyC,
+    updateCuentaTyC,
+    deleteCuentaTyC,
+}

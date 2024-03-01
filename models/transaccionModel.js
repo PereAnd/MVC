@@ -50,4 +50,4 @@ const Transaccion = sequelize.define(
 );
 
 
-module.exports.Transaccion;
+module.exports = Transaccion;

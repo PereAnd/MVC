@@ -18,4 +18,4 @@ const Estado =  sequelize.define(
     }
 );
 
-module.exports.Estado;
+module.exports = Estado;

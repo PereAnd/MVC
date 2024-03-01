@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const TipoEntidadFinanciera = sequelize.define(
-    "tipo_entidadfinanciera",
+    "tipoEntidadFinanciera",
     {
         idTipoEntidadFinanciera: {
             type: DataTypes.INTEGER,
@@ -11,12 +11,10 @@ const TipoEntidadFinanciera = sequelize.define(
             allowNull: false
         },
         nombre:{
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.STRING
         },
         codigo:{
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.STRING
         }
     },
     {

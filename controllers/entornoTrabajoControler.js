@@ -1,22 +1,23 @@
-const { where } = require("sequelize");
-const {entornoTrabajoModel} = require("../models/indexModel");
+const entornoTrabajo = require("../models/entornoTrabajoModel");
+const {entornoTrabajoModelModel} = require("../models/indexModel");
 
 /**
  * Obtener lista de la base de datos EntornoTrabajo
  * @param {*} req 
  * @param {*} res 
  */
-const getEntornoTrabajos =  async(req, res)=>{
+const getEntornosTrabajo =  async(req, res)=>{
     try{
-        const entornoTrabajo = await entornoTrabajoModel.findAll();
-        if(entornoTrabajo == null){
+        const data = await entornoTrabajoModelModel.findAll();
+        if(data==null){
             res.status(404).send({
-                message: "No existen entornos de trabajo!!!"
+                message: "No se han encontrado entornos de trabajo."
             });
         }else{
-            res.status(200).send(entornoTrabajo);
+            res.status(200).send(data) 
         }
-    }catch(e){
+
+    }catch{
         res.status(404).send(e);
     }
 };
@@ -27,16 +28,16 @@ const getEntornoTrabajos =  async(req, res)=>{
  */
 const getEntornoTrabajo = async(req,res) =>{
     try{
-        const idEntornoTra = req.params.id;
-        const entornoTrabajo = await entornoTrabajoModel.findOne({
-            message:"Entorno de Trabajo con el id "+idEntornoTra+" no existe!!!"
+        const id = req.params.id;
+        const data = await entornoTrabajoModelModel.findOne({
+            where: {
+            idEntornoTrabajo: id,
+            },
         });
-        if(!entornoTrabajo){
-            res.status(404).send({
-                message:"Entorno de Trabajo no existe!!!"
-            })
-        }else{
-            res.status(200).send(entornoTrabajo);
+        if (!data){
+            res.status(404).send({ error: "Entorno de trabajo no encontrado." });
+        } else{
+            res.status(200).send(data);
         }
     }catch(e){
         res.status(404).send(e);
@@ -49,53 +50,72 @@ const getEntornoTrabajo = async(req,res) =>{
  */
 const createEntornoTrabajo = async(req,res) => {
     try{
-        const {body} = req
-        const entornoTrabajo = await clienteModel.create(body)
-        if(!body){
-            res.status(404).send({
-                message:"Entorno de Trabajo no existe!!!"
-            });
-        }
-        await entornoTrabajo.create(body);
-        res.status(200).send(entornoTrabajo);
-    }catch(e){
-        res.status(404).send(e);
-    }
+        const { body } = req
+            if(!body){
+                res.status(404).send("Parametros de creación entorno de trabajo vacios.");
+            }else{
+                const data = await clienteModel.create(body)
+                res.send( data );
+            }
+            }catch(e){
+                res.status(404).send({message:"No se pudo crear el entono de trabajo."})
+            }
 };
 /**
  * Modificar Entorno Trabajo
  * @param {*} req 
  * @param {*} res 
  */
-const updateEntornoTrabajo = async(req,res)=>{
+const updateEntornoTrabajo = async (req, res) => {
     try{
-        const idEntornoTra = req.params.id;
-        const entornoTrabajo = await entornoTrabajoModel.findOne({
-            where:{
-                idEntornoTrabajo: idEntornoTra
-            } 
-        });
-        if(!entornoTrabajo){
-            res.status(404).send({
-                message:"Entorno de Trabajo no existe!!!"
-            });
-        }
-        
-    } catch(e){
+    const id = req.params.id;
+    const entornoTrabajo = await ecommerceModel.findOne({
+
+      where: {
+        idEcommerce: id,
+      },
+    });
+    if (!entornoTrabajo){
+        return res.status(404).send({ error: "Entorno de trabajo no encontrado" });
+    }else{
+        let { body } = req;
+        entornoTrabajo.url = body.url;
+        entornoTrabajo.puerto = body.puerto;
+        entornoTrabajo.idEntidadFinanciera = body.idEntidadFinanciera;
+        entornoTrabajo.idTipoAmbiente = body.idTipoAmbiente;
+        entornoTrabajo.scopeEntorno = body.scope;
+        entornoTrabajo.grantType = body.grantType;
+        await entornoTrabajo.save();
+        res.status(200).send({message:"el entorno de trabajo ha sido modificada."});
+    }
+    }catch(e){
         res.status(404).send(e);
     }
-};
+  };
 /**
  * Borrar Entorno Trabajo
  * @param {*} req 
  * @param {*} res 
  */
-const deleteEntornoTrabajo = (req,res)=>{
+const deleteEntornoTrabajo = async(req,res)=>{
     try{
-        
-    } catch(e){
-        res.status(404).send(e);
+        const id = req.params.id;
+        const entornoTrabajo = await entornoTrabajoModelModel.findOne({
+            where:{
+                idEntornoTrabajo: id,
+            },
+        });
+        if (!entornoTrabajo){
+            res.status(404).send({ error: "Entorrno de trabajo no encontrado" });
+        }else{
+            await entornoTrabajo.destroy();
+            res.status(200).send({message: 'Entorno de trabajo eliminado correctamente'});
+        }
+    }catch(e){
+        res.status(404).send(e)
     }
 };
 
-module.exports = {getEntornoTrabajos,getEntornoTrabajo,createEntornoTrabajo,updateEntornoTrabajo,deleteEntornoTrabajo}
+
+
+module.exports = {getEntornosTrabajo,getEntornoTrabajo,createEntornoTrabajo,updateEntornoTrabajo,deleteEntornoTrabajo};
