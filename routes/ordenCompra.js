@@ -9,8 +9,8 @@ const {
     deleteOrdenCompra
 } = require("../controllers/OrdenCompraController");
 
-router.get('/',getOrdenCompra);
-router.get('/:id',getOrdenesCompras);
+router.get('/:id',getOrdenCompra);
+router.get('/',getOrdenesCompras);
 router.post('/',createOrdenCompra);
 router.put('/:id',updateOrdenCompra);
 router.delete('/:id',deleteOrdenCompra);

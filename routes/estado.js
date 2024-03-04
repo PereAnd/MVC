@@ -9,8 +9,8 @@ const {
     deleteEstado
 } = require("../controllers/estadoController");
 
-router.get('/',getEstado);
-router.get('/:id',getEstados);
+router.get('/:id',getEstado);
+router.get('/',getEstados);
 router.post('/',createEstado);
 router.put('/:id',updateEstado);
 router.delete('/:id',deleteEstado);

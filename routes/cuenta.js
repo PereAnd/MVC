@@ -9,10 +9,12 @@ const {
   deleteCuenta,
 } = require("../controllers/CuentaController");
 
-router.get("/", getCuenta);
-router.get("/:id", getCuentas);
-router.post("/", createCuenta);
-router.put("/:id", updateCuenta);
-router.delete("/:id", deleteCuenta);
+
+router.get('/:id',getCuenta);
+router.get('/',getCuentas);
+router.post('/',createCuenta);
+router.put('/:id',updateCuenta);
+router.delete('/:id',deleteCuenta);
+
 
 module.exports = router;
