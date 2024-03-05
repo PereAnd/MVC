@@ -1,4 +1,4 @@
-const {cuentasTyCModel} = require("../models/indexModel");
+const { cuentasTyCModel } = require("../models/indexModel");
 
 /**
  * Obtener lista de la base de datos CuentaTyC

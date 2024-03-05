@@ -1,5 +1,5 @@
 
-const {errorModel} = require("../models/indexModel");
+const { errorModel } = require("../models/indexModel");
 
 /**
  * Obtener lista de la base de datos de Error

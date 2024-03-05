@@ -1,4 +1,4 @@
-const {smsModel} = require("../models/indexModel");
+const { smsModel } = require("../models/indexModel");
 
 /**
  * Obtener estado por medio de un Id

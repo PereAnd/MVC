@@ -1,5 +1,4 @@
-const entornoTrabajo = require("../models/entornoTrabajoModel");
-const {entornoTrabajoModelModel} = require("../models/indexModel");
+const { entornoTrabajoModel } = require("../models/indexModel");
 
 /**
  * Obtener lista de la base de datos EntornoTrabajo
@@ -8,7 +7,7 @@ const {entornoTrabajoModelModel} = require("../models/indexModel");
  */
 const getEntornosTrabajo =  async(req, res)=>{
     try{
-        const data = await entornoTrabajoModelModel.findAll();
+        const data = await entornoTrabajoModel.findAll();
         if(data==null){
             res.status(404).send({
                 message: "No se han encontrado entornos de trabajo."
@@ -29,7 +28,7 @@ const getEntornosTrabajo =  async(req, res)=>{
 const getEntornoTrabajo = async(req,res) =>{
     try{
         const id = req.params.id;
-        const data = await entornoTrabajoModelModel.findOne({
+        const data = await entornoTrabajoModel.findOne({
             where: {
             idEntornoTrabajo: id,
             },
@@ -69,10 +68,10 @@ const createEntornoTrabajo = async(req,res) => {
 const updateEntornoTrabajo = async (req, res) => {
     try{
     const id = req.params.id;
-    const entornoTrabajo = await ecommerceModel.findOne({
+    const entornoTrabajo = await entornoTrabajoModel.findOne({
 
       where: {
-        idEcommerce: id,
+        idEntornoTrabajo: id,
       },
     });
     if (!entornoTrabajo){

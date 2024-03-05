@@ -1,4 +1,4 @@
-const {tipoAmbienteModel} = require("../models/indexModel");
+const { tipoAmbienteModel } = require("../models/indexModel");
 
 /**
  * Obtener lista de la base de datos Tipo Ambiente
