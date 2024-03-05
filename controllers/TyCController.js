@@ -1,18 +1,18 @@
+const e = require("cors");
 const { tycModel } = require("../models/indexModel");
 
 const getTyCs = async (req, res) => {
     try{
         const data = await tycModel.findAll();
-        if(data==null){
+        if(!data){
             res.status(404).send({
                 message: "No se han encontrado TyC."
             });
         }else{
             res.status(200).send(data)
         }
-
     }catch(e){
-
+        res.status(404).send("No se pudieron obtener tyCs. "+e)
     }
 };
 
@@ -30,7 +30,7 @@ const getTyC = async (req, res) => {
             res.status(200).send(data);
         }
     }catch(e){
-        res.status(404).send(e);
+        res.status(404).send("No se pudo obtener tyc. "+e);
     }
 };
 
@@ -44,7 +44,7 @@ const createTyC = async (req, res) => {
             res.status(200).send( data );
         }
     }catch(e){
-        res.status(404).send({message:"No se pudo crear tyc."})
+        res.status(404).send({message:"No se pudo crear tyc."+e})
     }
 };
 
@@ -65,7 +65,7 @@ const updateTyC = async (req, res) => {
     TyC.aceptacionDoc = body.aceptacionDoc
     await TyC.save();
     res.status(200).send({
-        message:"El tyc ha sido modificado."
+        message:"El tyc ha sido modificado."+e
     });
   }
     }catch(e){
@@ -87,7 +87,9 @@ const deleteTyC = async (req, res) => {
             await TyC.destroy();
             res.send({message: 'TyC eliminado correctamente'});
         }
-    }catch(e){}
+    }catch(e){
+        res.status(404).send(e);
+    }
     };
 
 module.exports = {
