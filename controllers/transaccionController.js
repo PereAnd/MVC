@@ -17,8 +17,9 @@ const getTransaccion= async(req,res)=>{
             res.status(404).send({
                 message:"Transacción con el id "+idTransaccionC+" no existe!!!"
             });
+        }else{
+            res.status(200).send(Transaccion);
         }
-        res.status(200).send(Transaccion);
     }catch(e){
         res.status(404).send(e);
     }
@@ -29,13 +30,20 @@ const getTransaccion= async(req,res)=>{
  * @param {*} res 
  */
 const getTransacciones = async(req,res)=>{
-   // try{
-        const Transaccions = await transaccionModel.findAll();       
-        res.status(200).send(Transaccions);
-  /*  }
+    try{
+        const Transaccions = await transaccionModel.findAll();    
+        if(Transaccions == null){
+            res.status(404).send({
+                message: "No se han encontrado Transacciones"
+            });
+        }else{
+            res.status(200).send(Transaccions);
+        }   
+
+    }
     catch(e){
         res.status(404).send(e);
-    }*/
+    }
 };
 /**
  * crear una Transacción 

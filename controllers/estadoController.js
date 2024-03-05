@@ -36,8 +36,9 @@ const getEstados = async(req,res)=>{
             res.status(404).send({
                 message: "No se han encontrado estados!!!"
             });
+        }else{
+            res.status(200).send(Estados);
         }
-        res.status(200).send(Estados);
     }
     catch(e){
         res.status(404).send(e);
@@ -52,9 +53,10 @@ const getEstados = async(req,res)=>{
 const createEstado = async(req,res)=>{
     try{
         const { body } = req;
-        console.log(body);
         if(Object.keys(body).length == 0){
-            res.status(404).send("parametros de creación de estado, vacios!!!");
+            res.status(404).send({
+                message:"parametros de creación de estado, vacios!!!"
+            });
         }else{
             const Estado = await estadoModel.create(body);
             res.status(200).send(Estado);
@@ -108,7 +110,6 @@ const updateEstado = async(req,res)=>{
 const deleteEstado = async (req,res)=>{
     try{
         const idEstadoF = req.params.id;
-        console.log("valor id "+idEstadoF);
         const Estado = await estadoModel.findOne({
             where:{
                 idEstado: idEstadoF

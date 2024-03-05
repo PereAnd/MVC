@@ -16,8 +16,9 @@ const getCuenta = async(req,res)=>{
             res.status(404).send({
                 message:"Cuenta con el id "+idCuentaC+" no existe!!!"
             });
+        }else{
+            res.status(200).send(cuenta);
         }
-        res.status(200).send(cuenta);
     }catch(e){
         res.status(404).send(e);
     }
@@ -34,8 +35,9 @@ const getCuentas = async(req,res)=>{
             res.status(404).send({
                 message: "No se han encontrado Cuentas"
             });
+        }else{
+            res.status(200).send(cuentas);
         }
-        res.status(200).send(cuentas);
     }
     catch(e){
         res.status(404).send(e);
@@ -58,7 +60,6 @@ const createCuenta = async(req,res)=>{
             res.status(200).send(cuenta);
         }
     }catch(e){
-        console.log(e);
         res.status(404).send({
             message:"No se pudo crear la cuenta!!!"
         });
@@ -83,8 +84,7 @@ const updateCuenta = async(req,res)=>{
             res.status(404).send({
                 message: "parametros de creación cuenta vacios!!!"
             });
-        }
-        else if(!cuenta){
+        }else if(!cuenta){
             res.status(404).send({
                 message: "No se encontró cuenta financiera con el id "+idCuenta
             });
@@ -94,7 +94,7 @@ const updateCuenta = async(req,res)=>{
             cuenta.password = body.password;
             cuenta.numeroCuenta = body.numeroCuenta;
             cuenta.idEntidadFinanciera = body.idEntidadFinanciera;
-            cuenta.idEstado_Cuenta = body.idEstado_Cuenta;
+            cuenta.idEstado = body.idEstado;
             await cuenta.save();
             res.status(200).send({
                 message:"Cuenta con id "+idCuenta+", ha sido modificada!!!"

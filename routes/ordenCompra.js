@@ -7,7 +7,7 @@ const {
     createOrdenCompra,
     updateOrdenCompra,
     deleteOrdenCompra
-} = require("../controllers/OrdenCompraController");
+} = require("../controllers/ordenCompraController");
 
 router.get('/:id',getOrdenCompra);
 router.get('/',getOrdenesCompras);

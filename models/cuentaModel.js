@@ -25,7 +25,7 @@ const Cuenta = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        idEstado_Cuenta:{
+        idEstado:{
             type: DataTypes.INTEGER,
             allowNull: false
         },

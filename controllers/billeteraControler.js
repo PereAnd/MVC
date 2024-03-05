@@ -36,7 +36,7 @@ const updateBilletera = async (req, res) => {
   billetera.user = body.user;
   billetera.password = body.password;
   billetera.numeroBilletera = body.numeroBilletera;
-  billetera.idEstado_BilleteraCBIT = body.idEstado_BilleteraCBIT;
+  billetera.idEstado = body.idEstado;
     
   await billetera.save();
   res.send(billetera);

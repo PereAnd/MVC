@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const OrdenCompra = sequelize.define(
-    "ordenCompra",{
+    "orden_compra",{
         idOrdenCompra:{
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -10,7 +10,7 @@ const OrdenCompra = sequelize.define(
             primaryKey: true
         },
         costoTotal:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         codigoEstado:{
@@ -22,12 +22,10 @@ const OrdenCompra = sequelize.define(
             allowNull: false
         },
         numeroAprobacion:{
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.STRING
         },
         observaciones:{
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.STRING
         },
         idCliente:{
             type: DataTypes.INTEGER,

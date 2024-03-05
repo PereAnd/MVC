@@ -17,8 +17,9 @@ const getOrdenCompra= async(req,res)=>{
             res.status(404).send({
                 message:"OrdenCompra con el id "+idOrdenCompraC+" no existe!!!"
             });
+        }else{
+            res.status(200).send(OrdenCompra);
         }
-        res.status(200).send(OrdenCompra);
     }catch(e){
         res.status(404).send(e);
     }
@@ -50,16 +51,18 @@ const getOrdenesCompras = async(req,res)=>{
  */
 const createOrdenCompra = async(req,res)=>{
     try{
-        const { body } = req.params.body;
-        if(!body){
-            res.status(404).send("parámetros de creación de OrdenCompra, vacios!!!");
+        const { body } = req;
+        if(Object.keys(body).length == 0){
+            res.status(404).send({
+                message:"parámetros de creación de OrdenCompra, vacios!!!"
+            });
         }else{
             const OrdenCompra = await ordenCompraModel.create(body);
             res.status(200).send(OrdenCompra);
         }
     }catch(e){
         res.status(404).send({
-            message:"No se pudo crear la OrdenCompra!!!"
+            message:"No se pudo crear la OrdenCompra!!!"+e
         });
     }
 };
@@ -71,18 +74,22 @@ const createOrdenCompra = async(req,res)=>{
 const updateOrdenCompra = async(req,res)=>{
     try{
         //veririfcar si pidiendo todo el body y deconstruyendolo con idOrdenCompra, sirve?
-        const {idOrdenCompra} = req.params.id;
+        const {body} = req;
+        const idOrdenCompra = req.params.id;
         const OrdenCompra = await ordenCompraModel.findOne({
             where: {
                 idOrdenCompra: idOrdenCompra
             }
         });
-        if(!OrdenCompra){
-            res.send(404).status({
+        if(Object.keys(body).length == 0){
+            res.status(404).send({
+                message: "parametros de creación cuenta vacios!!!"
+            });
+        }else if(!OrdenCompra){
+            res.status(404).send({
                 message: "No se encontró OrdenCompra con el id "+idOrdenCompra
             });
         }else{
-            const{body} = req;
             OrdenCompra.costoTotal = body.costoTotal;
             OrdenCompra.codigoEstado = body.codigoEstado;
             OrdenCompra.codigoOTP = body.codigoOTP;
@@ -92,7 +99,7 @@ const updateOrdenCompra = async(req,res)=>{
             OrdenCompra.idEstado = body.idEstado;
             OrdenCompra.idEcommerce = body.idEcommerce;
             await OrdenCompra.save();
-            res.send(200).send({
+            res.status(200).send({
                 message:"OrdenCompra con id "+idOrdenCompra+", ha sido modificada!!!"
             });
         }
