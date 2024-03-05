@@ -27,4 +27,4 @@ const TyC = sequelize.define(
     } 
 );
 
-module.exports.TyC;
+module.exports = TyC;

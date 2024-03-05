@@ -19,6 +19,6 @@ const error = sequelize.define("Error",
 ,{
     timestamps: true
 });
-module.exports.error;
+module.exports = error;
 
 

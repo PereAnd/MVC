@@ -7,7 +7,7 @@ const {
   createCuenta,
   updateCuenta,
   deleteCuenta,
-} = require("../controllers/CuentaController");
+} = require("../controllers/cuentaController");
 
 
 router.get('/:id',getCuenta);

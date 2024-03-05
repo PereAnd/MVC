@@ -30,4 +30,4 @@ const SMS =  sequelize.define(
     }
 );
 
-module.exports.SMS;
+module.exports = SMS;

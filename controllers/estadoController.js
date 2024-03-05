@@ -1,4 +1,4 @@
-const {estadoModel} = require("../models/indexModel");
+const { estadoModel } = require("../models/indexModel");
 
 /**
  * Obtener estado por medio de un Id

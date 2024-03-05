@@ -1,4 +1,4 @@
-const {transaccionModel} = require("../models/indexModel");
+const { transaccionModel } = require("../models/indexModel");
 
 /**
  * Obtener estado por medio de un Id

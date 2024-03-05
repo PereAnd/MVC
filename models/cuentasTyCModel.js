@@ -1,8 +1,8 @@
 const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
-const cuentaTyC = sequelize.define("Cuenta_x_TyC",
-{
+const cuentaTyC = sequelize.define(
+    "Cuenta_x_TyC",{
     idCuenta_TyC: {
         primaryKey: true,
         autoIncrement: true,
@@ -19,4 +19,5 @@ const cuentaTyC = sequelize.define("Cuenta_x_TyC",
 ,{
     timestamps: true
 });
-module.exports.error;
+
+module.exports = cuentaTyC;

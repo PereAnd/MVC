@@ -6,7 +6,7 @@ const {
   createBilletera,
   updateBilletera,
   deleteBilletera,
-} = require("../controllers/billeteraControler");
+} = require("../controllers/billeteraController");
 
 router.get('/', getBilleteras);
 router.get('/:id', getBilletera);

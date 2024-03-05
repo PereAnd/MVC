@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const TipoIdentificacion = sequelize.define(
-    "TipoIdentificacion",{
+    "tipo_identificacion",{
         idTipoIdentificacion:{
             type: DataTypes.INTEGER,
             primaryKey: true,
