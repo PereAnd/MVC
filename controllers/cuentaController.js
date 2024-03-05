@@ -6,7 +6,7 @@ const {cuentaModel} = require("../models/indexModel");
  */
 const getCuenta = async(req,res)=>{
     try{
-        const idCuentaC = req.params.body;
+        const idCuentaC = req.params.id;
         const cuenta = await cuentaModel.findOne({
             where:{
                 idCuenta:idCuentaC
@@ -48,14 +48,17 @@ const getCuentas = async(req,res)=>{
  */
 const createCuenta = async(req,res)=>{
     try{
-        const { body } = req.params.body;
-        if(!body){
-            res.status(404).send("parametros de creación cuenta vacios!!!");
+        const { body } = req;
+        if(Object.keys(body).length == 0){
+            res.status(404).send({
+                message:"parametros de creación cuenta vacios!!!"
+            });
         }else{
             const cuenta = await cuentaModel.create(body);
             res.status(200).send(cuenta);
         }
     }catch(e){
+        console.log(e);
         res.status(404).send({
             message:"No se pudo crear la cuenta!!!"
         });
@@ -69,14 +72,20 @@ const createCuenta = async(req,res)=>{
 const updateCuenta = async(req,res)=>{
     try{
         //veririfcar si pidiendo todo el body y deconstruyendolo con idCuenta, sirve?
-        const {idCuenta} = req.params.body;
+        const {body} = req;
+        const idCuenta = req.params.id;
         const cuenta = await cuentaModel.findOne({
             where: {
                 idCuenta: idCuenta
             }
         });
-        if(!cuenta){
-            res.send(404).status({
+        if(Object.keys(body).length == 0){
+            res.status(404).send({
+                message: "parametros de creación cuenta vacios!!!"
+            });
+        }
+        else if(!cuenta){
+            res.status(404).send({
                 message: "No se encontró cuenta financiera con el id "+idCuenta
             });
         }else{
@@ -85,15 +94,17 @@ const updateCuenta = async(req,res)=>{
             cuenta.password = body.password;
             cuenta.numeroCuenta = body.numeroCuenta;
             cuenta.idEntidadFinanciera = body.idEntidadFinanciera;
-            cuenta.idToken = body.idToken;
             cuenta.idEstado_Cuenta = body.idEstado_Cuenta;
             await cuenta.save();
-            res.send(200).send({
+            res.status(200).send({
                 message:"Cuenta con id "+idCuenta+", ha sido modificada!!!"
             });
         }
     }catch(e){
-        res.status(404).send(e);
+        res.status(404).send({
+            error: e,
+            message: "No se encontró cuenta financiera con el id "+idCuenta
+        });
     }
 };
 /**

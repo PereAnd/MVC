@@ -18,9 +18,6 @@ const Transaccion = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        fechaTransaccion:{
-            type: DataTypes.DATE
-        },
         montoTransaccion:{
             type: DataTypes.DOUBLE
         },
@@ -40,8 +37,7 @@ const Transaccion = sequelize.define(
             type:DataTypes.STRING
         },
         idError:{
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.INTEGER
         }
     },
     {
@@ -50,4 +46,4 @@ const Transaccion = sequelize.define(
 );
 
 
-module.exports.Transaccion;
+module.exports = Transaccion;

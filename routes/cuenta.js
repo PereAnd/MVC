@@ -13,7 +13,7 @@ const {
 router.get('/:id',getCuenta);
 router.get('/',getCuentas);
 router.post('/',createCuenta);
-router.put('/:id',updateCuenta);
+router.patch('/:id',updateCuenta);
 router.delete('/:id',deleteCuenta);
 
 

@@ -11,7 +11,7 @@ const {
 router.get('/', getTipoEntidadesF);
 router.get('/:id', getTipoEntidadF);
 router.post('/', createTipoEntidadF);
-router.put('/:id', updateTipoEntidadF);
+router.patch('/:id', updateTipoEntidadF);
 router.delete('/:id', deleteTipoEntidadF);
 
 module.exports = router;

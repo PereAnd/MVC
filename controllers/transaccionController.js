@@ -29,19 +29,13 @@ const getTransaccion= async(req,res)=>{
  * @param {*} res 
  */
 const getTransacciones = async(req,res)=>{
-    try{
-        const Transaccions = await transaccionModel.findAll();
-        if(Transaccions == null){
-            res.status(404).send({
-                message: "No se han encontrado Transacciones!!!"
-            });
-        }
+   // try{
+        const Transaccions = await transaccionModel.findAll();       
         res.status(200).send(Transaccions);
-    }
+  /*  }
     catch(e){
         res.status(404).send(e);
-    }
-
+    }*/
 };
 /**
  * crear una Transacción 
@@ -50,15 +44,18 @@ const getTransacciones = async(req,res)=>{
  */
 const createTransaccion = async(req,res)=>{
     try{
-        const { body } = req.params.body;
-        if(!body){
-            res.status(404).send("parámetros de creación de Transacción, vacios!!!");
+        const { body } = req;
+        if(Object.keys(body).length == 0){
+            res.status(404).send({
+                message:"parámetros de creación de Transacción, vacios!!!"
+            });
         }else{
             const Transaccion = await transaccionModel.create(body);
             res.status(200).send(Transaccion);
         }
     }catch(e){
         res.status(404).send({
+            error: e,
             message:"No se pudo crear la Transacción!!!"
         });
     }

@@ -11,7 +11,7 @@ const {
 router.get('/', getClientes);
 router.get('/:id', getCliente);
 router.post('/', createCliente);
-router.put('/:id', updateCliente);
+router.patch('/:id', updateCliente);
 router.delete('/:id', deleteCliente);
 
 module.exports = router;

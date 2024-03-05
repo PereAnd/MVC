@@ -11,7 +11,7 @@ const {
 router.get('/', getBilleteras);
 router.get('/:id', getBilletera);
 router.post('/', createBilletera);
-router.put('/:id', updateBilletera);
+router.patch('/:id', updateBilletera);
 router.delete('/:id', deleteBilletera);
 
 module.exports = router;
