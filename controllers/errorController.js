@@ -10,7 +10,7 @@ const { errorModel } = require("../models/indexModel");
 const getErrores =  async(req, res)=>{
     try{
         const data = await errorModel.findAll();
-        if(data==null){
+        if(!data){
             res.status(404).send({message: "No se han encontrado errores."});
         }else{
             res.status(200).send(data)
@@ -42,5 +42,18 @@ const getError = async(req,res) =>{
         res.status(404).send(e);
     }
 };
+const createError = async(req,res)=>{
+    const { body } = req;
+    if(Object.keys(body).length == 0){
+        res.status(404).send({
+            message: "parametros de creación de error vacios"
+        });
+    } else{
+        const data = await errorModel.create(body)
+        res.status(200).send({
+            message:"Se creo correctamente el error. "+e
+        });
+    }
+}
 
-module.exports = {getErrores,getError}
+module.exports = {getErrores,getError,createError}
