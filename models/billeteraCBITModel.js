@@ -2,7 +2,7 @@ const { sequelize } = require("../config/mysql");
 const { DataTypes } = require("sequelize");
 
 const BilleteraCBITBank = sequelize.define(
-  "Billetera_CBITBank",
+  "billetera_cbitbank",
   {
     idBilletera_CBITBank: {
       type: DataTypes.INTEGER,

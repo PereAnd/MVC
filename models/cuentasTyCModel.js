@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const cuentaTyC = sequelize.define(
-    "Cuenta_x_TyC",{
+    "cuenta_x_tyc",{
     idCuenta_TyC: {
         primaryKey: true,
         autoIncrement: true,
