@@ -6,7 +6,7 @@ const {
     createTipoAmbiente,
     updateTipoAmbiente,
     deleteTipoAmbiente,
-} = require("../controllers/tipoAmbienteControler");
+} = require("../controllers/tipoAmbienteController");
 
 router.get('/', getTipoAmbientes);
 router.get('/:id', getTipoAmbiente);

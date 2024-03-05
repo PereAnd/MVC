@@ -8,14 +8,13 @@ const { entornoTrabajoModel } = require("../models/indexModel");
 const getEntornosTrabajo =  async(req, res)=>{
     try{
         const data = await entornoTrabajoModel.findAll();
-        if(data==null){
+        if(!data){
             res.status(404).send({
                 message: "No se han encontrado entornos de trabajo."
             });
         }else{
             res.status(200).send(data) 
         }
-
     }catch{
         res.status(404).send(e);
     }
@@ -30,7 +29,7 @@ const getEntornoTrabajo = async(req,res) =>{
         const id = req.params.id;
         const data = await entornoTrabajoModel.findOne({
             where: {
-            idEntornoTrabajo: id,
+                idEntornoTrabajo: id,
             },
         });
         if (!data){
@@ -39,7 +38,7 @@ const getEntornoTrabajo = async(req,res) =>{
             res.status(200).send(data);
         }
     }catch(e){
-        res.status(404).send(e);
+        res.status(404).send({message:"No se pudo obtener el entono de trabajo."+e});
     }
 };
 /**
@@ -53,11 +52,11 @@ const createEntornoTrabajo = async(req,res) => {
             if(!body){
                 res.status(404).send("Parametros de creación entorno de trabajo vacios.");
             }else{
-                const data = await clienteModel.create(body)
+                const data = await entornoTrabajoModel.create(body)
                 res.send( data );
             }
             }catch(e){
-                res.status(404).send({message:"No se pudo crear el entono de trabajo."})
+                res.status(404).send({message:"No se pudo crear el entono de trabajo. "+e})
             }
 };
 /**
@@ -67,7 +66,7 @@ const createEntornoTrabajo = async(req,res) => {
  */
 const updateEntornoTrabajo = async (req, res) => {
     try{
-    const id = req.params.id;
+    const id = req;
     const entornoTrabajo = await entornoTrabajoModel.findOne({
 
       where: {
@@ -98,8 +97,8 @@ const updateEntornoTrabajo = async (req, res) => {
  */
 const deleteEntornoTrabajo = async(req,res)=>{
     try{
-        const id = req.params.id;
-        const entornoTrabajo = await entornoTrabajoModelModel.findOne({
+        const id = req;
+        const entornoTrabajo = await entornoTrabajoModel.findOne({
             where:{
                 idEntornoTrabajo: id,
             },

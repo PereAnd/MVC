@@ -6,7 +6,7 @@ const {
     createEntornoTrabajo,
     updateEntornoTrabajo,
     deleteEntornoTrabajo,
-} = require("../controllers/entornoTrabajoControler");
+} = require("../controllers/entornoTrabajoController");
 
 router.get('/', getEntornosTrabajo);
 router.get('/:id', getEntornoTrabajo);

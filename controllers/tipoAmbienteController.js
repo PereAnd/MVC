@@ -8,7 +8,7 @@ const { tipoAmbienteModel } = require("../models/indexModel");
 const getTipoAmbientes =  async(req, res)=>{
   try{
     const data = await tipoAmbienteModel.findAll();
-    if(data == null){
+    if(!data){
       res.satatus(404).send({
         message: "no se a encontrado tipos de ambientee"
       });
@@ -20,12 +20,12 @@ const getTipoAmbientes =  async(req, res)=>{
 };
 /**
  * Obtener un Tipo Ambiente
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 const getTipoAmbiente = async(req,res) =>{
     try{
-      const id = req.params.id;
+      const id = req;
       const data = await tipoAmbienteModel.findOne({
         where: {
           idTipoAmbiente: id,
@@ -48,7 +48,7 @@ const getTipoAmbiente = async(req,res) =>{
  */
 const createTipoAmbiente = async(req,res) => {
   try{
-    const {body} = req.params.body
+    const {body} = req
     if(!body){
       res.status(404).send("Parametros de creación tipo de ambiente.");
     }else{
@@ -56,7 +56,7 @@ const createTipoAmbiente = async(req,res) => {
       res.status(200).send({data});
     }
   }catch(e){
-    res.status(404).send({message:"No se pudo crear cuenta tyc."});
+    res.status(404).send({message:"No se pudo crear cuenta tyc."+e});
   }
 };
 /**
@@ -66,7 +66,7 @@ const createTipoAmbiente = async(req,res) => {
  */
 const updateTipoAmbiente = async(req,res)=>{
   try{
-    const id = req.params.id;
+    const id = req;
     const data = await cuentaTyCController.findOne({
         where: {
             idTipoAmbiente: id,
@@ -93,7 +93,7 @@ const updateTipoAmbiente = async(req,res)=>{
  */
 const deleteTipoAmbiente = async(req,res)=>{
   try{
-      const id = req.params.id;
+      const id = req;
       const tipoAmbiente = await tipoAmbienteModel.findOne({
         where: {
           idTipoAmbiente: id,

@@ -6,7 +6,7 @@ const {
     createCuentaTyC,
     updateCuentaTyC,
     deleteCuentaTyC,
-} = require("../controllers/cuentaTyCControler");
+} = require("../controllers/cuentaTyCController");
 
 router.get('/', getCuentaTyCs);
 router.get('/:id', getCuentaTyC);
