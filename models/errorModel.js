@@ -14,7 +14,11 @@ const error = sequelize.define("error",
     },
     mensajeError:{
         type: DataTypes.STRING
-    }
+    },
+    idTransaccion: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
 }
 ,{
     timestamps: true

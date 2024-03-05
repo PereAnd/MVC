@@ -12,6 +12,7 @@ const getCuenta = async(req,res)=>{
                 idCuenta:idCuentaC
             }
         });
+        console.log("valor cuenta "+cuenta);
         if(!cuenta){
             res.status(404).send({
                 message:"Cuenta con el id "+idCuentaC+" no existe!!!"
@@ -134,4 +135,39 @@ const deleteCuenta = async (req,res)=>{
         res.status(404).send(e);
     }
 };
-module.exports = {getCuenta,getCuentas,createCuenta,updateCuenta,deleteCuenta};
+
+/**
+ * obtener cuenta con usuario y password
+ */
+
+const obtenerCuenta = async(req,res)=>{
+    try{
+        const user = req.query.usuario;
+        const pass = req.query.password;
+        if(!user || !pass){
+            res.status(400).send({
+                message:"parametros de búsqueda usuario ó password vacios!!!"
+            });
+        }else{
+            console.log("datos "+user+" "+pass);
+            const cuenta = cuentaModel.findOne({
+                where:{
+                    usuario: user,
+                    password: pass
+                }
+            });
+            if(!cuenta){
+                res.status(400).send({
+                    message: "No se encuentra cuenta!!!"
+                });
+            }else{
+                console.log("dato cuenta: "+cuenta);
+                res.status(200).send(cuenta);
+            }
+        }
+    }catch(e){
+        res.status(400).send(e);
+    }
+};
+
+module.exports = {getCuenta,getCuentas,createCuenta,updateCuenta,deleteCuenta,obtenerCuenta};
