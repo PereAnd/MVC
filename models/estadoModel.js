@@ -12,6 +12,10 @@ const Estado =  sequelize.define(
         nombreEstado:{
             type: DataTypes.STRING,
             allowNull:false
+        },
+        codigoEstado:{
+            type: DataTypes.STRING,
+            allowNull:false
         }
     },{
         timestamps: true

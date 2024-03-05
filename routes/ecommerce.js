@@ -11,7 +11,7 @@ const {
 router.get("/", getEcommerces);
 router.get("/:id", getEcommerce);
 router.post("/", createEcommerce);
-router.put("/:id", updateEcommerce);
+router.patch("/:id", updateEcommerce);
 router.delete("/:id", deleteEcommerce);
 
 module.exports = router;

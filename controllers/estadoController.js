@@ -17,8 +17,9 @@ const getEstado= async(req,res)=>{
             res.status(404).send({
                 message:"Estado con el id "+idEstadoC+" no existe!!!"
             });
+        }else{
+            res.status(200).send(Estado);
         }
-        res.status(200).send(Estado);
     }catch(e){
         res.status(404).send(e);
     }
@@ -50,8 +51,9 @@ const getEstados = async(req,res)=>{
  */
 const createEstado = async(req,res)=>{
     try{
-        const { body } = req.params.body;
-        if(!body){
+        const { body } = req;
+        console.log(body);
+        if(Object.keys(body).length == 0){
             res.status(404).send("parametros de creación de estado, vacios!!!");
         }else{
             const Estado = await estadoModel.create(body);
@@ -59,7 +61,7 @@ const createEstado = async(req,res)=>{
         }
     }catch(e){
         res.status(404).send({
-            message:"No se pudo crear la Estado!!!"
+            message:"No se pudo crear el Estado!!!"
         });
     }
 };
@@ -70,22 +72,28 @@ const createEstado = async(req,res)=>{
  */
 const updateEstado = async(req,res)=>{
     try{
-        const {idEstado} = req.params.id;
+        const idEstado = req.params.id;
         const Estado = await estadoModel.findOne({
             where: {
                 idEstado: idEstado
             }
         });
+        console.log(Estado);
         if(!Estado){
-            res.send(404).status({
+            res.status(404).send({
                 message: "No se encontró estado con el id "+idEstado
             });
-        }else{
+        }else if(Object.keys(req.body).length == 0){
+            res.status(404).send({
+                message:"parametros de modificación de estado, vacios!!!"
+            })
+        }
+        else{
             const{body} = req;
             Estado.nombreEstado = body.nombreEstado;
             Estado.codigoEstado = body.codigoEstado;
             await Estado.save();
-            res.send(200).send({
+            res.status(200).send({
                 message:"Estado con id "+idEstado+", ha sido modificada!!!"
             });
         }
@@ -100,11 +108,13 @@ const updateEstado = async(req,res)=>{
 const deleteEstado = async (req,res)=>{
     try{
         const idEstadoF = req.params.id;
+        console.log("valor id "+idEstadoF);
         const Estado = await estadoModel.findOne({
             where:{
                 idEstado: idEstadoF
             }
         });
+        
         if(!Estado){
             res.status(404).send({
                 message: "No se encontró estado con el id "+idEstadoF

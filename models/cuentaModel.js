@@ -4,7 +4,7 @@ const {DataTypes} = require("sequelize");
 const Cuenta = sequelize.define(
     "cuenta",{
         idCuenta:{
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
@@ -22,10 +22,6 @@ const Cuenta = sequelize.define(
             allowNull: false
         },
         idEntidadFinanciera:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        idToken:{
             type: DataTypes.INTEGER,
             allowNull: false
         },
