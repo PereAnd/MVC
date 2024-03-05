@@ -11,7 +11,7 @@ const {
 router.get('/', getTyCs);
 router.get('/:id', getTyC);
 router.post('/', createTyC);
-router.put('/:id', updateTyC);
+router.patch('/:id', updateTyC);
 router.delete('/:id', deleteTyC);
 
 module.exports = router;

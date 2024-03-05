@@ -8,7 +8,7 @@ const { cuentasTyCModel } = require("../models/indexModel");
 const getCuentaTyCs =  async (req, res)=>{
     try{
         const data = await cuentasTyCModel.findAll();
-        if(data==null){
+        if(!data){
             res.status(404).send({
                 message: "No se han encontrado cuentas TyC."
             });
@@ -48,15 +48,17 @@ const getCuentaTyC = async(req,res) =>{
  */
 const createCuentaTyC = async(req,res) => {
     try{
-        const { body } = req.params.body;
+        const { body } = req;
         if(!body){
             res.status(404).send("Parametros de creación cuenta tyc vacios.");
-        }else{
+
+        }
+        else{
             const data = await cuentasTyCModel.create(body);
             res.status(200).send(data)
         }
     } catch(e){
-        res.status(404).send({message:"No se pudo crear cuenta tyc."});
+        res.status(404).send({message:"No se pudo crear cuenta tyc. "+e});
     }
 };
 /**
@@ -74,6 +76,7 @@ const updateCuentaTyC = async(req,res)=>{
         });
         if (!cuentaTyC){
             return res.status(404).send({ error: "Cuenta TyC no encontrada." })
+
         }else{
             let { body } = req.params.body;
             cuentaTyC.idCuenta = body.idCuenta;

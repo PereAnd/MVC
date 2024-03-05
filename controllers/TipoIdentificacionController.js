@@ -1,9 +1,10 @@
+const e = require("cors");
 const { tipoIdenModel } = require("../models/indexModel");
 
 const getTiposIden = async (req, res) => {
     try{
   const data = await tipoIdenModel.findAll();
-  if(data==null){
+  if(!data){
     res.status(404).send({
         message: "No se han encontrado cuentas TyC."
     });
@@ -42,8 +43,8 @@ const createTipoIden = async (req, res) => {
         const data = await tipoIdenModel.create(body);
         res.status(200).send( data );
     }
-  }catch{
-    res.status(404).send({message:"No se pudo crear cuenta tyc."});
+  }catch(e){
+    res.status(404).send({message:"No se pudo crear cuenta tipo identificación."+e});
   }
 };
 

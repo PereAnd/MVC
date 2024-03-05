@@ -11,7 +11,7 @@ const {
 router.get('/', getTiposIden);
 router.get('/:id', getTipoIden);
 router.post('/', createTipoIden);
-router.put('/:id', updateTipoIden);
+router.patch('/:id', updateTipoIden);
 router.delete('/:id', deleteTipoIden);
 
 module.exports = router;

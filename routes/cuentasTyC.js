@@ -11,7 +11,7 @@ const {
 router.get('/', getCuentaTyCs);
 router.get('/:id', getCuentaTyC);
 router.post('/', createCuentaTyC);
-router.put('/:id', updateCuentaTyC);
+router.patch('/:id', updateCuentaTyC);
 router.delete('/:id', deleteCuentaTyC);
 
 module.exports = router;

@@ -11,7 +11,7 @@ const {
 router.get('/', getEntornosTrabajo);
 router.get('/:id', getEntornoTrabajo);
 router.post('/', createEntornoTrabajo);
-router.put('/:id', updateEntornoTrabajo);
+router.patch('/:id', updateEntornoTrabajo);
 router.delete('/:id', deleteEntornoTrabajo);
 
 module.exports = router;
