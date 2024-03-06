@@ -1,4 +1,5 @@
 const e = require("cors");
+const {Op}= require("sequelize")
 const { tipoIdenModel } = require("../models/indexModel");
 
 const getTiposIden = async (req, res) => {
@@ -35,16 +36,39 @@ const getTipoIden = async (req, res) => {
 };
 
 const createTipoIden = async (req, res) => {
+  const nombreTIdent = req.body.nombre
+  const nombreTIdentMay=nombreTIdent.toUpperCase()
+  const codigo=req.body.codigo
   try{
     const { body } = req;
-    if(!body){
-        res.status(404).send("parametros de creación tipo de identificación vacios.")
-    }else{
-        const data = await tipoIdenModel.create(body);
-        res.status(200).send( data );
-    }
+    if(Object.keys(body).length == 0){
+        res.status(400).send({
+            message:"parametros de creación de tipo de identificación, vacios!!!"
+        });
+    } else{
+        const [tipoIden,Created] = await tipoIdenModel.findOrCreate(
+          {
+            where: {
+              [Op.or]:[
+                    { nombre: nombreTIdentMay}, 
+                    { codigo: codigo }
+                  ]},
+                  defaults:{
+                    nombre: nombreTIdentMay, 
+                    codigo: codigo 
+                 }
+        })            
+        console.log(tipoIden);
+        if(Created==false){
+            res.status(409).send({error: "El tipo identificación '"+nombreTIdentMay+"' ya existe, con código: "+codigo})
+        }   else{
+            console.log(Created)
+            res.status(200).send({mensaje: "El tipo identifiación '"+nombreTIdentMay+"' ha sido creado, con código: "+codigo})
+        }
+    };
   }catch(e){
-    res.status(404).send({message:"No se pudo crear cuenta tipo identificación."+e});
+
+      res.status(404).send({error:'No se pudo crear el tipo entidad financiera. '+e})
   }
 };
 
