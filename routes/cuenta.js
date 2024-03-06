@@ -6,7 +6,7 @@ const {
   getCuentas,
   createCuenta,
   updateCuenta,
-  deleteCuenta,
+  deleteCuenta
 } = require("../controllers/cuentaController");
 
 
@@ -15,6 +15,5 @@ router.get('/',getCuentas);
 router.post('/',createCuenta);
 router.patch('/:id',updateCuenta);
 router.delete('/:id',deleteCuenta);
-
 
 module.exports = router;
