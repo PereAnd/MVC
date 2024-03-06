@@ -150,7 +150,7 @@ const obtenerCuenta = async(req,res)=>{
             });
         }else{
             console.log("datos "+user+" "+pass);
-            const cuenta = cuentaModel.findOne({
+            const cuenta = await cuentaModel.findOne({
                 where:{
                     usuario: user,
                     password: pass
