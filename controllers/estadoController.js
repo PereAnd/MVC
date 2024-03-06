@@ -1,4 +1,5 @@
 const { estadoModel } = require("../models/indexModel");
+const { Op } = require("sequelize");
 
 /**
  * Obtener estado por medio de un Id
@@ -43,7 +44,6 @@ const getEstados = async(req,res)=>{
     catch(e){
         res.status(404).send(e);
     }
-
 };
 /**
  * crear una Estado 
@@ -51,19 +51,40 @@ const getEstados = async(req,res)=>{
  * @param {*} res 
  */
 const createEstado = async(req,res)=>{
+    const nombreEstado = req.body.nombreEstado
+    const nombreEstadoMay=nombreEstado.toUpperCase()
+    const codigoEstado = req.body.codigoEstado
     try{
         const { body } = req;
         if(Object.keys(body).length == 0){
-            res.status(404).send({
+            res.status(400).send({
                 message:"parametros de creación de estado, vacios!!!"
             });
-        }else{
-            const Estado = await estadoModel.create(body);
-            res.status(200).send(Estado);
-        }
-    }catch(e){
+        } else{
+            const [Estado,Created] = await estadoModel.findOrCreate(
+                {
+                    where:{
+                        [Op.or]:[
+                            { nombreEstado: nombreEstadoMay },
+                            { codigoEstado: codigoEstado }
+                    ]},
+                        defaults:{
+                            nombreEstado: nombreEstadoMay,
+                            codigoEstado: codigoEstado
+                }
+            })
+        
+            if(Created==false){
+                res.status(409).send({error: 'El estado '+nombreEstadoMay+' ya esta creado.'})
+            }else{
+                res.status(200).send({mensaje: 'El estado '+nombreEstadoMay+' ha sido creado.'})
+            }
+            console.log(Created)
+        };
+
+        } catch(e){
         res.status(404).send({
-            message:"No se pudo crear el Estado!!!"
+            message:"No se pudo crear el Estado!!!"+e
         });
     }
 };
