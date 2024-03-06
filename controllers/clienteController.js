@@ -16,6 +16,20 @@ const getCliente = async (req, res) => {
   res.send(data);
 };
 
+const obtenerCliente = async(req,res)=>{
+  
+    const tipoIdentificacion = req.query.tipoIdentificacion;
+    const numeroIdentificacion = req.query.numeroIdentificacion;
+
+    const cliente = await clienteModel.findOne({
+      where:{
+        idTipoIdentificacion: tipoIdentificacion,
+        numeroIdentificacion: numeroIdentificacion
+      }
+    });
+    res.status(200).send(cliente);
+}
+
 const createCliente = async (req, res) => {
   const { body } = req;
   console.log(body);
@@ -71,6 +85,7 @@ const deleteCliente = async (req, res) => {
 module.exports = {
   getCliente,
   getClientes,
+  obtenerCliente,
   createCliente,
   updateCliente,
   deleteCliente

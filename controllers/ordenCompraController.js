@@ -58,7 +58,7 @@ const createOrdenCompra = async(req,res)=>{
             });
         }else{
             const OrdenCompra = await ordenCompraModel.create(body);
-            res.status(200).send(OrdenCompra);
+            res.status(201).send(OrdenCompra);
         }
     }catch(e){
         res.status(404).send({
