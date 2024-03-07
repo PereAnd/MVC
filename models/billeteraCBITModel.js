@@ -10,10 +10,6 @@ const BilleteraCBITBank = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    user: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -52,21 +52,22 @@ const updateCliente = async (req, res) => {
   });
   if (!cliente)
     return res.status(404).send({ error: "Cliente no encontrado" });
-  let { primerNombre, segundoNombre, primerApellido, segundoApellido, numeroIdentificacion, idTipoIdentificacion, telefono, email, direccion, IP } = req.body;
-
-  cliente.primerNombre = primerNombre;
-  cliente.segundoNombre = segundoNombre;
-  cliente.primerApellido = primerApellido;
-  cliente.segundoApellido = segundoApellido;
-  cliente.numeroIdentificacion = numeroIdentificacion;
-  cliente.idTipoIdentificacion = idTipoIdentificacion;
-  cliente.telefono = telefono;
-  cliente.email = email;
-  cliente.direccion = direccion;
-  cliente.IP = IP;
-  
-  await cliente.save();
-  res.send(cliente);
+  else{
+    let { primerNombre, segundoNombre, primerApellido, segundoApellido, numeroIdentificacion, idTipoIdentificacion, telefono, email, direccion, IP } = req.body;
+    cliente.primerNombre = primerNombre;
+    cliente.segundoNombre = segundoNombre;
+    cliente.primerApellido = primerApellido;
+    cliente.segundoApellido = segundoApellido;
+    cliente.numeroIdentificacion = numeroIdentificacion;
+    cliente.idTipoIdentificacion = idTipoIdentificacion;
+    cliente.telefono = telefono;
+    cliente.email = email;
+    cliente.direccion = direccion;
+    cliente.IP = IP;
+    
+    await cliente.save();
+    res.send(cliente);
+  }
 };
 
 const deleteCliente = async (req, res) => {

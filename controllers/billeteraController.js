@@ -41,18 +41,14 @@ const getBilletera = async (req, res) => {
 const createBilletera = async (req, res) => {
   const { body } = req;
   try {
-    if (!body.user || !body.password || !body.numeroBilletera || !body.idEstado)
+    if (!body.password || !body.numeroBilletera || !body.idEstado)
       return res.status(400).send({ error: "Datos incompletos" });
     else {
       const [billetera, created] = await billeteraModel.findOrCreate({
         where: {
-          [Op.or]: [
-            { user: body.user },
-            { numeroBilletera: body.numeroBilletera },
-          ],
+            numeroBilletera: body.numeroBilletera 
         },
         defaults: {
-          user: body.user,
           password: body.password,
           numeroBilletera: body.numeroBilletera,
           idEstado: body.idEstado,

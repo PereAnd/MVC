@@ -52,6 +52,18 @@ const Cliente = sequelize.define(
         idBilleteraCBITBank:{
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        fechaNacimiento:{
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        fechaExpedicion:{
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        ciudadExpedicion:{
+            type: DataTypes.INTEGER,
+            allowNull:false
         }
     }
 );
