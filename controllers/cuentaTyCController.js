@@ -51,7 +51,6 @@ const createCuentaTyC = async(req,res) => {
         const { body } = req;
         if(!body){
             res.status(404).send("Parametros de creación cuenta tyc vacios.");
-
         }
         else{
             const data = await cuentasTyCModel.create(body);
