@@ -3,20 +3,8 @@ const { Op } = require("sequelize");
 
 const getBilleteras = async (req, res) => {
   try {
-    const user = req.query.user;
-    if (!user) {
-      const data = await billeteraModel.findAll();
-      res.send(data);
-    } else {
-      const data = await billeteraModel.findOne({
-        where: {
-          user,
-        },
-      });
-      if (!data)
-        return res.status(404).send({ error: "Billetera no encontrada" });
-      else res.send(data);
-    }
+    const data = await billeteraModel.findAll();
+    res.send(data);
   } catch (error) {
     return res.status(500).send({ error });
   }
@@ -46,7 +34,7 @@ const createBilletera = async (req, res) => {
     else {
       const [billetera, created] = await billeteraModel.findOrCreate({
         where: {
-            numeroBilletera: body.numeroBilletera 
+          numeroBilletera: body.numeroBilletera,
         },
         defaults: {
           password: body.password,
