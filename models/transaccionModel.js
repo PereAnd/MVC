@@ -31,6 +31,10 @@ const Transaccion = sequelize.define(
         },
         numeroAprobacion:{
             type:DataTypes.STRING
+        },
+        idTipo_Transaccion:{
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     },
     {

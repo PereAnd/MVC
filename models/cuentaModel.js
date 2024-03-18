@@ -32,7 +32,11 @@ const Cuenta = sequelize.define(
         idCliente:{
             type: DataTypes.INTEGER,
             allowNull: false
-        }
+        },
+        tipoCuenta:{
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
     },
     {
         timestamps: true

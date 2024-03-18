@@ -10,7 +10,7 @@ const getAnexo= async(req,res)=>{
         const idAnexoC = req.params.id;
         const Anexo = await anexosModel.findOne({
             where:{
-                idAnexo:idAnexoC
+                idAnexos:idAnexoC
             }
         });
         if(!Anexo){

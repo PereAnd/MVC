@@ -37,9 +37,9 @@ const getCuenta = async (req, res) => {
 };
 
 const createCuenta = async (req, res) => {
-  const {usuario, password, numeroCuenta, idEstado, idEntidadFinanciera, idCliente} = req.body;
+  const {usuario, password, numeroCuenta, idEstado, idEntidadFinanciera, idCliente, tipoCuenta} = req.body;
   try {
-    if (!usuario || !password || !numeroCuenta || !idEstado || !idEntidadFinanciera || !idCliente)
+    if (!usuario || !password || !numeroCuenta || !idEstado || !idEntidadFinanciera || !idCliente || !tipoCuenta )
       return res.status(400).send({ error: "Datos incompletos" });
     else {
       const [cuenta, created] = await cuentaModel.findOrCreate({
@@ -54,6 +54,8 @@ const createCuenta = async (req, res) => {
           idEntidadFinanciera: idEntidadFinanciera,
           idEstado: idEstado,
           idCliente: idCliente,
+          tipoCuenta:tipoCuenta
+
         },
       });
       if (!created) return res.status(409).send({ error: "Cuenta ya existe" });
@@ -82,7 +84,7 @@ const updateCuenta = async (req, res) => {
             [Op.or]: [
               {
                 idEntidadFinanciera: body.idEntidadFinanciera || cuenta.idEntidadFinanciera,
-                numeroCuenta: body.numeroCuenta || cuenta.numeroCuenta,
+                numeroCuenta: body.numeroCuenta || cuenta.numeroCuenta, 
               },
             ],
           },

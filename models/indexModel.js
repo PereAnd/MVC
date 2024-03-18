@@ -18,6 +18,7 @@ const models ={
     tipoAmbienteModel: require('./tipoAmbienteModel'),
     tipoEntidadFModel: require('./tipoEntidadFModel'),
     tipoIdenModel: require('./tipoIdenticacionModel'),
+    tipoTransaccionModel: require('./tipoTransaccionModel'),
     transaccionModel: require('./transaccionModel'),
     tycModel: require('./tycModel')
 }
