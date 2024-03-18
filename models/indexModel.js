@@ -1,4 +1,5 @@
 const models ={
+    anexosModel: require('./anexosModel'),
     billeteraModel: require('./billeteraCBITModel'),
     ciudadModel: require("./ciudadModel"),
     clienteModel: require('./clienteModel'),

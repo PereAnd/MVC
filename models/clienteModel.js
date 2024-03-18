@@ -64,6 +64,10 @@ const Cliente = sequelize.define(
         ciudadExpedicion:{
             type: DataTypes.INTEGER,
             allowNull:false
+        },
+        idAnexos:{
+            type:DataTypes.INTEGER,
+            allowNull:true
         }
     }
 );
