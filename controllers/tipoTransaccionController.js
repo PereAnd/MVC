@@ -1,4 +1,4 @@
-const { tipoTransaccionModel } = require("../models/indexModel");
+const { tipo, tipoTransaccionModel } = require("../models/indexModel");
 
 /**
  * Obtener estado por medio de un Id
@@ -69,4 +69,56 @@ const createTipoTransaccion = async(req,res)=>{
     }
 };
 
-module.exports = {getTipoTransaccion,getTipoTransacciones,createTipoTransaccion};
+const updateTipoTransaccion = async (req, res) => {
+    const id = req.params.id;
+    const { body } = req;
+    let TipoTransaccion = await tipoTransaccionModel.findOne({
+      where: {
+        idTipo_Transaccion: id,
+      },
+    });
+    try {
+      if (TipoTransaccion) {
+        if (Object.keys(body).length === 0)
+          return res.status(400).send({ error: "No hay datos para actualizar" });
+        else if (body.numeroTipoTransaccion || body.idEntidadFinanciera) {
+          const TipoTransaccionExists = await tipoTransaccionModel.findOne({
+            where: {
+              [Op.or]: [
+                {
+                  idEntidadFinanciera: body.idEntidadFinanciera || TipoTransaccion.idEntidadFinanciera,
+                  numeroTipoTransaccion: body.numeroTipoTransaccion || TipoTransaccion.numeroTipoTransaccion, 
+                },
+              ],
+            },
+          });
+          if (TipoTransaccionExists && TipoTransaccionExists.idTipoTransaccion != id)
+            return res.status(409).send({ error: "TipoTransaccion ya existe" });
+        }
+  
+        await TipoTransaccion.update(body);
+        TipoTransaccion.save();
+        res.send(TipoTransaccion);
+      } else {
+        return res.status(404).send({ error: "TipoTransaccion no encontrada" });
+      }
+    } catch (error) {
+      return res.status(500).send({ error });
+    }
+  };
+  
+  const deleteTipoTransaccion = async (req, res) => {
+    const id = req.params.id;
+    const TipoTransaccion = await tipoTransaccionModel.findOne({
+      where: {
+        idTipo_Transaccion: id,
+      },
+    });
+    if (!TipoTransaccion){
+      return res.status(404).send({ error: "TipoTransaccion no encontrada" });
+    }else{
+        await TipoTransaccion.destroy();
+        res.status(200).send({ message: "TipoTransaccion eliminada correctamente" });
+    }
+  };
+module.exports = {getTipoTransaccion,getTipoTransacciones,createTipoTransaccion,updateTipoTransaccion,deleteTipoTransaccion};
