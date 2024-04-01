@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const SMS =  sequelize.define(
-    "sms",{
+    "SMS",{
         idSMS: {
             type: DataTypes.INTEGER,
             primaryKey: true,

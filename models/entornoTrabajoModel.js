@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 
-const entornoTrabajo = sequelize.define("entorno_trabajo",
+const entornoTrabajo = sequelize.define("Entorno_Trabajo",
 {
     idEntornoTrabajo: {
         primaryKey: true,

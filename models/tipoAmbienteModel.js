@@ -1,7 +1,7 @@
 const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
-const tipoAmbiente = sequelize.define("tipo_ambiente",
+const tipoAmbiente = sequelize.define("Tipo_Ambiente",
 {
     idTipo_Ambiente: {
         primaryKey: true,

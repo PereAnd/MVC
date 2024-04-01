@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const Transaccion = sequelize.define(
-    "transaccion",
+    "Transaccion",
     {
         idTransaccion:{
             primaryKey: true,

@@ -1,7 +1,7 @@
 const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
-const error = sequelize.define("error",
+const error = sequelize.define("Error",
 {
     idError: {
         primaryKey: true,

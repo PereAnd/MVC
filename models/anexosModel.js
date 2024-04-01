@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const Anexos = sequelize.define(
-    "anexos",{
+    "Anexos",{
         idAnexos:{
             type: DataTypes.INTEGER,
             autoIncrement: true,

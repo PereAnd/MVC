@@ -2,7 +2,7 @@ const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
 const TyC = sequelize.define(
-    "terminos_condiciones",
+    "Terminos_Condiciones",
     {
         idTyC:{
             type: DataTypes.INTEGER,

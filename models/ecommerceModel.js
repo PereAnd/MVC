@@ -2,7 +2,7 @@ const { sequelize } = require("../config/mysql");
 const { DataTypes } = require("sequelize");
 
 const Ecommerce = sequelize.define(
-  "ecommerce",
+  "Ecommerce",
   {
     idEcommerce: {
       type: DataTypes.INTEGER,
