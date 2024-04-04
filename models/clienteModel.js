@@ -47,11 +47,11 @@ const Cliente = sequelize.define(
         },
         IP:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         idBilleteraCBITBank:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         fechaNacimiento:{
             type: DataTypes.DATE,
@@ -63,7 +63,7 @@ const Cliente = sequelize.define(
         },
         ciudadExpedicion:{
             type: DataTypes.INTEGER,
-            allowNull:false
+            allowNull:true
         },
         idAnexos:{
             type:DataTypes.INTEGER,
