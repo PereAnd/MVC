@@ -17,9 +17,10 @@ const getCliente = async (req, res) => {
 };
 
 const obtenerCliente = async(req,res)=>{
+  console.log(req.body);
   
-    const tipoIdentificacion = req.query.tipoIdentificacion;
-    const numeroIdentificacion = req.query.numeroIdentificacion;
+    const tipoIdentificacion = req.body.tipoIdentificacion;
+    const numeroIdentificacion = req.body.numeroIdentificacion;
 
     const cliente = await clienteModel.findOne({
       where:{
@@ -27,6 +28,7 @@ const obtenerCliente = async(req,res)=>{
         numeroIdentificacion: numeroIdentificacion
       }
     });
+    if (!cliente) return res.status(404).send({ error: "Cliente no encontrado" });
     res.status(200).send(cliente);
 }
 
