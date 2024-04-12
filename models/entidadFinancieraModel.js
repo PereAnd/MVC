@@ -14,6 +14,10 @@ const EntidadFinanciera = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    imagen: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     nit: {
       type: DataTypes.STRING,
       allowNull: false,
