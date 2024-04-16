@@ -27,8 +27,8 @@ const getDepartamento = async(req, res)=>{
 }
 
 const getDepartamentos = async(req,res)=>{
-    const Departamentoes = await departamentoModel.findAll();
-    res.status(200).send(Departamentoes);
+    const Departamentos = await departamentoModel.findAll();
+    res.status(200).send(Departamentos);
 }
 
 const createDepartamento = async(req,res)=>{

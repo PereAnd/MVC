@@ -10,9 +10,19 @@ const Transaccion = sequelize.define(
             allowNull: false,
             type: DataTypes.INTEGER
         },
-        idCuenta:{
+        idTipo_Transaccion:{
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        idEstado:{
+            type: DataTypes.INTEGER
+        },
+        idProducto:{
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        IP:{
+            type: DataTypes.STRING
         },
         montoTransaccion:{
             type: DataTypes.DOUBLE
@@ -23,18 +33,11 @@ const Transaccion = sequelize.define(
         motivo:{
             type: DataTypes.STRING    
         },
-        idEstado:{
-            type: DataTypes.INTEGER
-        },
         idTransaccionAutorizador:{
             type:DataTypes.STRING
         },
         numeroAprobacion:{
             type:DataTypes.STRING
-        },
-        idTipo_Transaccion:{
-            type: DataTypes.INTEGER,
-            allowNull: false
         }
     },
     {

@@ -65,7 +65,6 @@ const updateCliente = async (req, res) => {
     cliente.telefono = telefono;
     cliente.email = email;
     cliente.direccion = direccion;
-    cliente.IP = IP;
     
     await cliente.save();
     res.send(cliente);

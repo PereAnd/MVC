@@ -45,10 +45,6 @@ const Cliente = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        IP:{
-            type: DataTypes.STRING,
-            allowNull: true
-        },
         idBilleteraCBITBank:{
             type: DataTypes.INTEGER,
             allowNull: true

@@ -1,15 +1,15 @@
 const {sequelize} = require("../config/mysql");
 const {DataTypes} = require("sequelize");
 
-const cuentaTyC = sequelize.define(
-    "Cuenta_x_TyC",{
-    idCuenta_TyC: {
+const productosTyC = sequelize.define(
+    "Producto_x_TyC",{
+    idProducto_TyC: {
         primaryKey: true,
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    idCuenta:{
+    idProducto:{
         type: DataTypes.INTEGER
     },
     idTyC:{
@@ -20,4 +20,4 @@ const cuentaTyC = sequelize.define(
     timestamps: true
 });
 
-module.exports = cuentaTyC;
+module.exports = productosTyC;

@@ -1,0 +1,120 @@
+const { productoModel } = require("../models/indexModel");
+const { Op } = require("sequelize");
+
+const getProductos = async (req, res) => {
+  try{
+    const data = await productoModel.findAll();
+    if(!data){
+        res.status(404).send({
+            message: "No se han encontrado productos."
+        });
+    }else{
+        res.status(200).send(data)
+    }
+  }catch(e){
+      res.status(404).send(e);
+  }
+};
+
+const getProducto = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await productoModel.findOne({
+      where: {
+        idProducto: id,
+      },
+    });
+    if (!data) return res.status(404).send({ error: "Producto no encontrada" });
+    res.send(data);
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+};
+
+const createProducto = async (req, res) => {
+  const {usuario, password, numeroProducto, idEstado, idEntidadFinanciera, idTipo_Producto, idBilletera_CBITBank} = req.body;
+  try {
+    if (!usuario || !password || !numeroProducto || !idEstado || !idEntidadFinanciera || !idTipo_Producto || !idBilletera_CBITBank )
+      return res.status(400).send({ error: "Datos incompletos" });
+    else {
+      const [Producto, created] = await productoModel.findOrCreate({
+        where: {
+          idEntidadFinanciera: idEntidadFinanciera,
+          numeroProducto: numeroProducto,
+        },
+        defaults: {
+          usuario: usuario,
+          password: password,
+          numeroProducto: numeroProducto,
+          idEntidadFinanciera: idEntidadFinanciera,
+          idEstado: idEstado,
+          idTipo_Producto:idTipo_Producto,
+          idBilletera_CBITBank:idBilletera_CBITBank
+
+        },
+      });
+      if (!created) return res.status(409).send({ error: "Producto ya existe" });
+      else res.status(201).send(Producto);
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error });
+  }
+};
+
+const updateProducto = async (req, res) => {
+  const id = req.params.id;
+  const { body } = req;
+  let Producto = await productoModel.findOne({
+    where: {
+      idProducto: id,
+    },
+  });
+  try {
+    if (Producto) {
+      if (Object.keys(body).length === 0)
+        return res.status(400).send({ error: "No hay datos para actualizar" });
+      else if (body.numeroProducto || body.idEntidadFinanciera) {
+        const ProductoExists = await productoModel.findOne({
+          where: {
+            [Op.or]: [
+              {
+                idEntidadFinanciera: body.idEntidadFinanciera || Producto.idEntidadFinanciera,
+                numeroProducto: body.numeroProducto || Producto.numeroProducto, 
+              },
+            ],
+          },
+        });
+        if (ProductoExists && ProductoExists.idProducto != id)
+          return res.status(409).send({ error: "Producto ya existe" });
+      }
+
+      await Producto.update(body);
+      Producto.save();
+      res.send(Producto);
+    } else {
+      return res.status(404).send({ error: "Producto no encontrada" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+};
+
+const deleteProducto = async (req, res) => {
+  const id = req.params.id;
+  const Producto = await productoModel.findOne({
+    where: {
+      idProducto: id,
+    },
+  });
+  if (!Producto)
+    return res.status(404).send({ error: "Producto no encontrada" });
+  await Producto.destroy();
+  res.status(200).send({ message: "Producto eliminada correctamente" });
+};
+module.exports = {
+  getProducto,
+  getProductos,
+  createProducto,
+  updateProducto,
+  deleteProducto,
+};
