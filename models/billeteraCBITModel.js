@@ -15,7 +15,7 @@ const BilleteraCBITBank = sequelize.define(
       allowNull: false,
     },
     numeroBilletera: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     idEstado: {

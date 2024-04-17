@@ -1,5 +1,9 @@
-const { billeteraModel } = require("../models/indexModel");
+const { billeteraModel, clienteModel } = require("../models/indexModel");
 const { Op } = require("sequelize");
+const {matchedData} = require("express-validator");
+const {encrypt, compare} = require("../utils/handlePassword");
+const {tokenSign} = require("../utils/handleJWT");
+
 
 const getBilleteras = async (req, res) => {
   try {
@@ -89,12 +93,50 @@ const deleteBilletera = async (req, res) => {
     where: {
       idBilletera_CBITBank: id,
     },
-  });
+  }); 
   if (!billetera)
     return res.status(404).send({ error: "Billetera no encontrada" });
-  await billetera.destroy();
+  await billetera.destroy(); 
   res.status(200).send({ message: "Billetera eliminada correctamente" });
 };
+
+const registrarBilletera = async(req, res)=>{
+
+  req = matchedData(req);
+  const password = await encrypt(req.password);
+  const body = {...req, password, idEstado: 1, numeroBilletera:"1283719283"}
+  const dataBilletera = await billeteraModel.create(body);
+  dataBilletera.set("password", undefined,{strict:false});
+  const data = {
+      billetera: dataBilletera
+  }
+  res.send({data})
+}
+
+const loginCtrl = async(req, res)=>{
+  req = matchedData(req);
+  const cliente = await clienteModel.findOne({
+    where:{
+      idTipoIdentificacion: req.idTipoIdentificacion,
+      numeroIdentificacion: req.numeroIdentificacion
+    }
+  });
+  const billetera = await billeteraModel.findOne({idBilletera_CBITBank:cliente.idBilleteraCBITBank});
+  const hashPassword = billetera.password;
+  const check = await compare(req.password, hashPassword);
+  console.log("valor check ", check)
+  if(!check){
+    res.status(402).send("Password invalida!!!");
+  }else{
+    const data = {
+      token: tokenSign(cliente),
+      cliente,
+      billetera
+    }
+    res.status(200).send(data);
+  }
+}
+
 
 module.exports = {
   getBilletera,
@@ -102,4 +144,6 @@ module.exports = {
   createBilletera,
   updateBilletera,
   deleteBilletera,
+  registrarBilletera,
+  loginCtrl
 };

@@ -1,4 +1,6 @@
 const { clienteModel } = require("../models/indexModel");
+const {matchedData} = require("express-validator");
+const {tokenSign} = require("../utils/handleJWT");
 
 const getClientes = async (req, res) => {
   const data = await clienteModel.findAll();
@@ -17,9 +19,9 @@ const getCliente = async (req, res) => {
 };
 
 const obtenerCliente = async(req,res)=>{
-  console.log(req.body);
+  console.log("valor en el metodo ",req.body);
   
-    const tipoIdentificacion = req.body.tipoIdentificacion;
+    const tipoIdentificacion = req.body.idTipoIdentificacion;
     const numeroIdentificacion = req.body.numeroIdentificacion;
 
     const cliente = await clienteModel.findOne({
@@ -84,11 +86,22 @@ const deleteCliente = async (req, res) => {
   res.send({message: 'Cliente eliminado correctamente'});
 };
 
+const registrarCliente = async(req, res)=>{
+
+  req = matchedData(req);
+  const dataCliente = await clienteModel.create(req);
+  const data = {
+      cliente: dataCliente
+  }
+  res.send({data})
+}
+
 module.exports = {
   getCliente,
   getClientes,
   obtenerCliente,
   createCliente,
   updateCliente,
-  deleteCliente
+  deleteCliente,
+  registrarCliente
 };
