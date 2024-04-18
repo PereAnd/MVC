@@ -35,16 +35,21 @@ const obtenerCliente = async(req,res)=>{
 }
 
 const createCliente = async (req, res) => {
-  const { body } = req;
+  req = matchedData(req);
+  const body = {...req};
   console.log(body);
   const clienteRepetido = await clienteModel.findOne({
     where: {
       numeroIdentificacion: body.numeroIdentificacion,
     },
   });
-  if (clienteRepetido) return res.status(400).send({ error: "El número de identificación ya se encuentra registrado" });
-  const data = await clienteModel.create(body);
-  res.send( data );
+  if (clienteRepetido){
+    return res.status(400).send({ error: "El número de identificación ya se encuentra registrado" });
+  }else{
+    const dataCliente = await clienteModel.create(req);
+    res.status(200).send(dataCliente);
+    console.log("datos del cliente ", dataCliente)
+  }
 };
 
 const updateCliente = async (req, res) => {
@@ -88,12 +93,7 @@ const deleteCliente = async (req, res) => {
 
 const registrarCliente = async(req, res)=>{
 
-  req = matchedData(req);
-  const dataCliente = await clienteModel.create(req);
-  const data = {
-      cliente: dataCliente
-  }
-  res.send({data})
+
 }
 
 module.exports = {

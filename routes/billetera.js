@@ -6,14 +6,12 @@ const {
   getBilleteras,
   createBilletera,
   updateBilletera,
-  deleteBilletera,
-  registrarBilletera,
+  deleteBilletera
 } = require("../controllers/billeteraController");
 
 router.get('/', getBilleteras);
 router.get('/:id', getBilletera);
-//router.post('/', validatorRegisterBilleteraItem,createBilletera);
-router.post('/', validatorRegisterBilleteraItem,registrarBilletera);
+router.post('/', validatorRegisterBilleteraItem,createBilletera);
 router.patch('/:id', updateBilletera);
 router.delete('/:id', deleteBilletera);
 

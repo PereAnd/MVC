@@ -31,12 +31,12 @@ const getBilletera = async (req, res) => {
 };
 
 const createBilletera = async (req, res) => {
-  const { body } = req;
   try {
-    if (!body.password || !body.numeroBilletera || !body.idEstado)
-      return res.status(400).send({ error: "Datos incompletos" });
-    else {
-      const [billetera, created] = await billeteraModel.findOrCreate({
+      req = matchedData(req);
+      const password = await encrypt(req.password);
+      const body = {...req, password, idEstado: 1, numeroBilletera:"1231231235"} 
+
+      const [dataBilletera, created] = await billeteraModel.findOrCreate({
         where: {
           numeroBilletera: body.numeroBilletera,
         },
@@ -46,10 +46,14 @@ const createBilletera = async (req, res) => {
           idEstado: body.idEstado,
         },
       });
-      if (!created)
+      if (!created){
         return res.status(409).send({ error: "Billetera ya existe" });
-      else res.status(201).send(billetera);
-    }
+      }  
+      else{
+        dataBilletera.set("password", undefined,{strict:false});
+        res.status(201).send(dataBilletera);
+      } 
+    
   } catch (error) {
     return res.status(500).send({ error });
   }
@@ -102,15 +106,7 @@ const deleteBilletera = async (req, res) => {
 
 const registrarBilletera = async(req, res)=>{
 
-  req = matchedData(req);
-  const password = await encrypt(req.password);
-  const body = {...req, password, idEstado: 1, numeroBilletera:"1283719283"}
-  const dataBilletera = await billeteraModel.create(body);
-  dataBilletera.set("password", undefined,{strict:false});
-  const data = {
-      billetera: dataBilletera
-  }
-  res.send({data})
+
 }
 
 const loginCtrl = async(req, res)=>{

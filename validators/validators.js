@@ -20,10 +20,7 @@ const validatorRegisterClienteItem = [
 ]
 
 const validatorRegisterBilleteraItem = [
-    check("idCliente").exists().notEmpty().isNumeric(),
     check("password").exists().notEmpty().isLength({min:8, max:99}),
-    check("numeroBilletera").exists().notEmpty(),
-    check("idEstado").exists().notEmpty().isNumeric(),
     (req,res,next)=>{
         return validateResult(req,res,next);
     }

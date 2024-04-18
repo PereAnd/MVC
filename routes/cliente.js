@@ -7,15 +7,13 @@ const {
   obtenerCliente,
   createCliente,
   updateCliente,
-  deleteCliente,
-  registrarCliente
+  deleteCliente
 } = require("../controllers/clienteController");
 
 router.get('/', getClientes);
 router.get('/:id', getCliente);
 router.post('/find', obtenerCliente)
-router.post('/', validatorRegisterClienteItem, registrarCliente);
-//router.post('/', validatorRegisterClienteItem, createCliente);
+router.post('/', validatorRegisterClienteItem, createCliente);
 router.patch('/:id', updateCliente);
 router.delete('/:id', deleteCliente);
 
