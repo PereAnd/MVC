@@ -1,18 +1,18 @@
-const { productoModel } = require("../models/indexModel");
+const { productoModel, clienteModel } = require("../models/indexModel");
 const { Op } = require("sequelize");
 
 const getProductos = async (req, res) => {
-  try{
+  try {
     const data = await productoModel.findAll();
-    if(!data){
-        res.status(404).send({
-            message: "No se han encontrado productos."
-        });
-    }else{
-        res.status(200).send(data)
+    if (!data) {
+      res.status(404).send({
+        message: "No se han encontrado productos.",
+      });
+    } else {
+      res.status(200).send(data);
     }
-  }catch(e){
-      res.status(404).send(e);
+  } catch (e) {
+    res.status(404).send(e);
   }
 };
 
@@ -24,17 +24,54 @@ const getProducto = async (req, res) => {
         idProducto: id,
       },
     });
-    if (!data) return res.status(404).send({ error: "Producto no encontrada" });
+    if (!data) return res.status(404).send({ error: "Producto no encontrado" });
     res.send(data);
   } catch (error) {
     return res.status(500).send({ error });
   }
 };
 
-const createProducto = async (req, res) => {
-  const {usuario, password, numeroProducto, idEstado, idEntidadFinanciera, idTipo_Producto, idBilletera_CBITBank} = req.body;
+const getProductsByUser = async (req, res) => {
   try {
-    if (!usuario || !password || !numeroProducto || !idEstado || !idEntidadFinanciera || !idTipo_Producto || !idBilletera_CBITBank )
+    const cliente = await clienteModel.findOne({
+      where: {
+        idCliente: req.params.id
+      }
+    })
+    if (!cliente) return res.status(404).send({ error: "Cliente no encontrado" });
+    
+    const productsByUser = await productoModel.findAll({
+      where: {
+        idBilletera_CBITBank: cliente.idBilleteraCBITBank
+      }
+    })
+    
+    res.send(productsByUser);
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+};
+
+const createProducto = async (req, res) => {
+  const {
+    usuario,
+    password,
+    numeroProducto,
+    idEstado,
+    idEntidadFinanciera,
+    idTipo_Producto,
+    idBilletera_CBITBank,
+  } = req.body;
+  try {
+    if (
+      !usuario ||
+      !password ||
+      !numeroProducto ||
+      !idEstado ||
+      !idEntidadFinanciera ||
+      !idTipo_Producto ||
+      !idBilletera_CBITBank
+    )
       return res.status(400).send({ error: "Datos incompletos" });
     else {
       const [Producto, created] = await productoModel.findOrCreate({
@@ -48,12 +85,12 @@ const createProducto = async (req, res) => {
           numeroProducto: numeroProducto,
           idEntidadFinanciera: idEntidadFinanciera,
           idEstado: idEstado,
-          idTipo_Producto:idTipo_Producto,
-          idBilletera_CBITBank:idBilletera_CBITBank
-
+          idTipo_Producto: idTipo_Producto,
+          idBilletera_CBITBank: idBilletera_CBITBank,
         },
       });
-      if (!created) return res.status(409).send({ error: "Producto ya existe" });
+      if (!created)
+        return res.status(409).send({ error: "Producto ya existe" });
       else res.status(201).send(Producto);
     }
   } catch (error) {
@@ -78,8 +115,9 @@ const updateProducto = async (req, res) => {
           where: {
             [Op.or]: [
               {
-                idEntidadFinanciera: body.idEntidadFinanciera || Producto.idEntidadFinanciera,
-                numeroProducto: body.numeroProducto || Producto.numeroProducto, 
+                idEntidadFinanciera:
+                  body.idEntidadFinanciera || Producto.idEntidadFinanciera,
+                numeroProducto: body.numeroProducto || Producto.numeroProducto,
               },
             ],
           },
@@ -92,7 +130,7 @@ const updateProducto = async (req, res) => {
       Producto.save();
       res.send(Producto);
     } else {
-      return res.status(404).send({ error: "Producto no encontrada" });
+      return res.status(404).send({ error: "Producto no encontrado" });
     }
   } catch (error) {
     return res.status(500).send({ error });
@@ -107,13 +145,14 @@ const deleteProducto = async (req, res) => {
     },
   });
   if (!Producto)
-    return res.status(404).send({ error: "Producto no encontrada" });
+    return res.status(404).send({ error: "Producto no encontrado" });
   await Producto.destroy();
   res.status(200).send({ message: "Producto eliminada correctamente" });
 };
 module.exports = {
   getProducto,
   getProductos,
+  getProductsByUser,
   createProducto,
   updateProducto,
   deleteProducto,
