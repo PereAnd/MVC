@@ -47,8 +47,12 @@ const createCliente = async (req, res) => {
     return res.status(400).send({ error: "El número de identificación ya se encuentra registrado" });
   }else{
     const dataCliente = await clienteModel.create(req);
-    res.status(200).send(dataCliente);
-    console.log("datos del cliente ", dataCliente)
+    const data = {
+      token: await tokenSign(dataCliente),
+      cliente: dataCliente
+    }
+    res.status(200).send(data);
+    console.log("datos del cliente ", data)
   }
 };
 
@@ -91,10 +95,6 @@ const deleteCliente = async (req, res) => {
   res.send({message: 'Cliente eliminado correctamente'});
 };
 
-const registrarCliente = async(req, res)=>{
-
-
-}
 
 module.exports = {
   getCliente,
@@ -102,6 +102,5 @@ module.exports = {
   obtenerCliente,
   createCliente,
   updateCliente,
-  deleteCliente,
-  registrarCliente
+  deleteCliente
 };

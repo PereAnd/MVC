@@ -34,7 +34,7 @@ const createBilletera = async (req, res) => {
   try {
       req = matchedData(req);
       const password = await encrypt(req.password);
-      const body = {...req, password, idEstado: 1, numeroBilletera:"1231231235"} 
+      const body = {...req, password, idEstado: 1, numeroBilletera:"000000003"} 
 
       const [dataBilletera, created] = await billeteraModel.findOrCreate({
         where: {
@@ -104,32 +104,38 @@ const deleteBilletera = async (req, res) => {
   res.status(200).send({ message: "Billetera eliminada correctamente" });
 };
 
-const registrarBilletera = async(req, res)=>{
-
-
-}
-
 const loginCtrl = async(req, res)=>{
-  req = matchedData(req);
-  const cliente = await clienteModel.findOne({
-    where:{
-      idTipoIdentificacion: req.idTipoIdentificacion,
-      numeroIdentificacion: req.numeroIdentificacion
+  try{
+    req = matchedData(req);
+    const cliente = await clienteModel.findOne({
+      where:{
+        idTipoIdentificacion: req.idTipoIdentificacion,
+        numeroIdentificacion: req.numeroIdentificacion
+      }
+    });
+    if(!cliente){
+      res.status(404).send("Cliente no existe!!!");
+    }else{
+      const billetera = await billeteraModel.findOne({
+        where:{
+          idBilletera_CBITBank:cliente.idBilleteraCBITBank
+        }
+      });
+      const hashPassword = billetera.password;
+      const check = await compare(req.password, hashPassword);
+      if(!check){
+        res.status(401).send("Password invalida!!!");
+      }else{
+        const data = {
+          token: await tokenSign(cliente),
+          cliente,
+          billetera
+        }
+        res.status(200).send(data);
+      }
     }
-  });
-  const billetera = await billeteraModel.findOne({idBilletera_CBITBank:cliente.idBilleteraCBITBank});
-  const hashPassword = billetera.password;
-  const check = await compare(req.password, hashPassword);
-  console.log("valor check ", check)
-  if(!check){
-    res.status(402).send("Password invalida!!!");
-  }else{
-    const data = {
-      token: tokenSign(cliente),
-      cliente,
-      billetera
-    }
-    res.status(200).send(data);
+  }catch(error){
+    return res.status(500).send({ error });
   }
 }
 
@@ -140,6 +146,5 @@ module.exports = {
   createBilletera,
   updateBilletera,
   deleteBilletera,
-  registrarBilletera,
   loginCtrl
 };

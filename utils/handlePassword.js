@@ -4,7 +4,8 @@ const bcryptjs = require("bcryptjs");
  * @param {*} passwordPlain 
  */
 const encrypt = async(passwordPlain)=>{
-    const hash = await bcryptjs.hash(passwordPlain, 10)
+    const hash = await bcryptjs.hash(passwordPlain, 10);
+    console.log("resultado hash ",hash);
     return hash;
 };
 
