@@ -12,7 +12,7 @@ const {
 
 router.get('/', getClientes);
 router.get('/:id', getCliente);
-router.post('/find', obtenerCliente)
+router.post('/find', obtenerCliente);
 router.post('/', validatorRegisterClienteItem, createCliente);
 router.patch('/:id', updateCliente);
 router.delete('/:id', deleteCliente);
