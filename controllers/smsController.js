@@ -1,5 +1,9 @@
 const { smsModel } = require("../models/indexModel");
+const twilio = require('twilio');
 
+const accountSId = process.env.ACCOUNT_S_ID;
+const authToken = process.env.AUTH_TOKEN;
+const numberPhone = process.env.NUMBER_PHONE;
 /**
  * Obtener estado por medio de un Id
  * @param {*} req 
@@ -126,4 +130,22 @@ const deleteSMS = async (req,res)=>{
         res.status(404).send(e);
     }
 };
-module.exports = {getSMS,getSMSs,createSMS,updateSMS,deleteSMS};
+
+
+const clienteTwilio = new twilio(accountSId, authToken);
+
+const sendSMS = async(req, res) =>{
+
+    const message = req.body.message;
+    const phone = req.body.phone;
+
+    clienteTwilio.messages.create({
+        body: message,
+        to: phone,
+        from: numberPhone
+    }).then((message)=> console.log(message.sid));
+
+    res.status(200).send("envio de mensaje exitoso!!!");
+}
+
+module.exports = {getSMS,getSMSs,createSMS,updateSMS,deleteSMS,sendSMS};
