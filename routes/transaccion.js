@@ -12,7 +12,7 @@ const {
 router.get("/:id", getTransaccion);
 router.get("/", getTransacciones);
 router.get("/product/:id", getTransactionsByProductId);
-router.get("/user/:id", getTransaccionesByClientId);
+router.get("/client/:id", getTransaccionesByClientId);
 router.post("/", createTransaccion);
 
 module.exports = router;
