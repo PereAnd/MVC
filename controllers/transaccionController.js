@@ -1,4 +1,8 @@
-const { transaccionModel } = require("../models/indexModel");
+const {
+  transaccionModel,
+  productoModel,
+  clienteModel,
+} = require("../models/indexModel");
 
 /**
  * Obtener transaccion por medio de un Id
@@ -70,6 +74,41 @@ const getTransacciones = async (req, res) => {
     res.status(404).send(e);
   }
 };
+
+const getTransaccionesByClientId = async (req, res) => {
+  const idCliente = req.params.id;
+  try {
+    const cliente = await clienteModel.findOne({
+      where: {
+        idCliente: idCliente,
+      },
+    });
+    if (!cliente) {
+      res.status(404).send({
+        message: "Cliente no encontrado",
+      });
+    }
+    const productos = await productoModel.findAll({
+      where: {
+        idBilletera_CBITBank: cliente.idBilleteraCBITBank,
+      },
+    });
+    if (!productos) {
+      res.status(404).send({
+        message: "No se encontraron productos para el cliente",
+      });
+    }
+    const transacciones = await transaccionModel.findAll({
+      where: {
+        idProducto: productos.map((producto) => producto.idProducto),
+      },
+    });
+    res.status(200).send(transacciones);
+  } catch (e) {
+    res.status(404).send(e);
+  }
+};
+
 /**
  * crear una Transacción
  * @param {*} req
@@ -98,5 +137,6 @@ module.exports = {
   getTransaccion,
   getTransacciones,
   getTransactionsByProductId,
+  getTransaccionesByClientId,
   createTransaccion,
 };
