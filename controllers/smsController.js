@@ -137,7 +137,7 @@ const clienteTwilio = new twilio(accountSId, authToken);
 const sendSMS = async(req, res) =>{
 
     const message = req.body.message;
-    const phone = req.body.phone;
+    const phone = req.body.to;
 
     clienteTwilio.messages.create({
         body: message,
