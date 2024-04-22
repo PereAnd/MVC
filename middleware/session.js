@@ -3,7 +3,7 @@ const {verityToken} = require("../utils/handleJWT")
 
 const authMiddleware = async(req, res, next)=>{
     try{
-        if(!req.headers.authorization){
+        if(!req.headers.authorization || req.headers.authorization == null){
             res.status(401).send("Necesitas un token de sesión!!!");
         }else{
             const token= req.headers.authorization.split(' ').pop();
@@ -11,7 +11,11 @@ const authMiddleware = async(req, res, next)=>{
             if(!dataToken.idCliente){
                 res.status(401).send("error id Token!!!");
             }else{
-                const cliente = await clienteModel.findById(dataToken.idCliente);
+                const cliente = await clienteModel.findOne({
+                    where: {
+                      idCliente: dataToken.idCliente,
+                    },
+                  });
                 //añadimos a la petición la data del cliente.
                 req.cliente = cliente;
                 next();

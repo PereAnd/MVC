@@ -52,7 +52,6 @@ const createCliente = async (req, res) => {
       cliente: dataCliente
     }
     res.status(200).send(data);
-    console.log("datos del cliente ", data)
   }
 };
 
