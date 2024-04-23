@@ -32,35 +32,35 @@ const getBilletera = async (req, res) => {
 
 const createBilletera = async (req, res) => {
   try {
-    req = matchedData(req);
-    console.log("valor llave req ", req);
-    const password = await encrypt(req.password);
-    const body = { ...req, password }
-    console.log("valor num billetera ", body.numeroBilletera);
-
-    const [dataBilletera, created] = await billeteraModel.findOrCreate({
+    const { body } = req;
+    const idCliente = body.idCliente;
+    const numeroBilletera = body.numeroBilletera;
+    const idEstado = body.idEstado;
+    const cliente = await clienteModel.findOne({
       where: {
-        numeroBilletera: body.numeroBilletera,
-      },
-      defaults: {
-        password: body.password,
-        numeroBilletera: body.numeroBilletera,
-        idEstado: body.idEstado,
-      },
-    });
-    if (!created) {
-      return res.status(409).send({ error: "Billetera ya existe" });
-    }
-    else {
-      const idCliente = body.idCliente;
-      const cliente = await clienteModel.findOne({
+        idCliente: idCliente
+      }
+    })
+    if (!cliente) {
+      res.status(404).send("cliente no existe con el id " + idCliente);
+    } else {
+      req = matchedData(req);
+      const password = await encrypt(req.password);
+      const body = { ...req, password, idCliente, numeroBilletera,idEstado}
+      const [dataBilletera, created] = await billeteraModel.findOrCreate({
         where: {
-          idCliente: idCliente
-        }
-      })
-      if(!cliente){
-        res.status(404).send("cliente no existe con el id "+idCliente);
-      }else{
+          numeroBilletera: body.numeroBilletera,
+        },
+        defaults: {
+          password: body.password,
+          numeroBilletera: body.numeroBilletera,
+          idEstado: body.idEstado,
+        },
+      });
+      if (!created) {
+        return res.status(409).send({ error: "Billetera ya existe" });
+      }
+      else {
         dataBilletera.set("password", undefined, { strict: false });
         const idBilleteraCBITBank = dataBilletera.idBilletera_CBITBank;
         cliente.update({ idBilletera_CBITBank: idBilleteraCBITBank });
@@ -68,7 +68,6 @@ const createBilletera = async (req, res) => {
         res.status(201).send(dataBilletera);
       }
     }
-
   } catch (e) {
     return res.status(500).send({ error: e });
   }
