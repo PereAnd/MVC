@@ -68,5 +68,28 @@ const createAnexos = async(req,res)=>{
         });
     }
 };
-
-module.exports = {getAnexo,getAnexos,createAnexos};
+const updateAnexos = async(req, res)=>{
+    try{
+        const idAnexos = req.params.id;
+        const {body} = req; 
+        const anexos = await anexosModel.findOne({
+            where:{
+                idAnexos: idAnexos
+            }
+        });
+        if(!anexos){
+            res.status(404).send("El anexo con id "+body.idAnexos+" no existe!!!");
+        }else{
+            await anexos.update(body);
+            anexos.save();
+            res.status(200).send(anexos);
+        }
+    }
+    catch(error){
+        res.status(400).send({
+            error: error,
+            message: "No se pudo modificar los anexos!!!"
+        })
+    }
+}
+module.exports = {getAnexo,getAnexos,createAnexos, updateAnexos};
