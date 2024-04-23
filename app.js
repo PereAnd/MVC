@@ -16,8 +16,10 @@ const port = process.env.PORT || 3000;
 //invocacion de rutas
 
 app.use("/api", require("./routes"));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+
 app.listen(port, () =>
   console.log(`Tu server esta listo por el puerto ${port}`)
 );
