@@ -1,8 +1,8 @@
 const { billeteraModel, clienteModel } = require("../models/indexModel");
 const { Op } = require("sequelize");
-const {matchedData} = require("express-validator");
-const {encrypt, compare} = require("../utils/handlePassword");
-const {tokenSign} = require("../utils/handleJWT");
+const { matchedData } = require("express-validator");
+const { encrypt, compare } = require("../utils/handlePassword");
+const { tokenSign } = require("../utils/handleJWT");
 
 
 const getBilleteras = async (req, res) => {
@@ -32,32 +32,41 @@ const getBilletera = async (req, res) => {
 
 const createBilletera = async (req, res) => {
   try {
-      req = matchedData(req);
-      const password = await encrypt(req.password);
-      const body = {...req, password, idEstado: 1, numeroBilletera:"000000003"} 
+    req = matchedData(req);
+    const password = await encrypt(req.password);
+    const body = { ...req, password, idEstado: 1, numeroBilletera: "000000003" }
 
-      const [dataBilletera, created] = await billeteraModel.findOrCreate({
+    const [dataBilletera, created] = await billeteraModel.findOrCreate({
+      where: {
+        numeroBilletera: body.numeroBilletera,
+      },
+      defaults: {
+        password: body.password,
+        numeroBilletera: body.numeroBilletera,
+        idEstado: body.idEstado,
+      },
+    });
+    if (!created) {
+      return res.status(409).send({ error: "Billetera ya existe" });
+    }
+    else {
+      const idCliente = body.idCliente;
+      const cliente = await clienteModel.findOne({
         where: {
-          numeroBilletera: body.numeroBilletera,
-        },
-        defaults: {
-          password: body.password,
-          numeroBilletera: body.numeroBilletera,
-          idEstado: body.idEstado,
-        },
-      });
-      if (!created){
-        return res.status(409).send({ error: "Billetera ya existe" });
-      }  
-      else{
-        dataBilletera.set("password", undefined,{strict:false});
+          idCliente: idCliente
+        }
+      })
+      if(!cliente){
+        res.status(404).send("cliente no existe con el id "+idCliente);
+      }else{
+        dataBilletera.set("password", undefined, { strict: false });
         const idBilleteraCBITBank = dataBilletera.idBilletera_CBITBank;
-        clienteModel.update({idBilletera_CBITBank: idBilleteraCBITBank});
-        clienteModel.save();
+        cliente.update({ idBilletera_CBITBank: idBilleteraCBITBank });
+        cliente.save();
         res.status(201).send(dataBilletera);
-        
-      } 
-    
+      }
+    }
+
   } catch (error) {
     return res.status(500).send({ error });
   }
@@ -101,35 +110,35 @@ const deleteBilletera = async (req, res) => {
     where: {
       idBilletera_CBITBank: id,
     },
-  }); 
+  });
   if (!billetera)
     return res.status(404).send({ error: "Billetera no encontrada" });
-  await billetera.destroy(); 
+  await billetera.destroy();
   res.status(200).send({ message: "Billetera eliminada correctamente" });
 };
 
-const loginCtrl = async(req, res)=>{
-  try{
+const loginCtrl = async (req, res) => {
+  try {
     req = matchedData(req);
     const cliente = await clienteModel.findOne({
-      where:{
+      where: {
         idTipoIdentificacion: req.idTipoIdentificacion,
         numeroIdentificacion: req.numeroIdentificacion
       }
     });
-    if(!cliente){
+    if (!cliente) {
       res.status(404).send("Cliente no existe!!!");
-    }else{
+    } else {
       const billetera = await billeteraModel.findOne({
-        where:{
-          idBilletera_CBITBank:cliente.idBilleteraCBITBank
+        where: {
+          idBilletera_CBITBank: cliente.idBilleteraCBITBank
         }
       });
       const hashPassword = billetera.password;
       const check = await compare(req.password, hashPassword);
-      if(!check){
+      if (!check) {
         res.status(401).send("Password invalida!!!");
-      }else{
+      } else {
         const data = {
           token: await tokenSign(cliente),
           cliente,
@@ -138,7 +147,7 @@ const loginCtrl = async(req, res)=>{
         res.status(200).send(data);
       }
     }
-  }catch(error){
+  } catch (error) {
     return res.status(500).send({ error: "error en el login" });
   }
 }
