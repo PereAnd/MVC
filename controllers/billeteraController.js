@@ -4,7 +4,6 @@ const { matchedData } = require("express-validator");
 const { encrypt, compare } = require("../utils/handlePassword");
 const { tokenSign } = require("../utils/handleJWT");
 
-
 const getBilleteras = async (req, res) => {
   try {
     const data = await billeteraModel.findAll();
@@ -34,19 +33,19 @@ const createBilletera = async (req, res) => {
   try {
     const { body } = req;
     const idCliente = body.idCliente;
-    const numeroBilletera = body.numeroBilletera;
-    const idEstado = body.idEstado;
+    const idEstado = 1; // Estado activo
     const cliente = await clienteModel.findOne({
       where: {
-        idCliente: idCliente
-      }
-    })
+        idCliente: idCliente,
+      },
+    });
     if (!cliente) {
       res.status(404).send("cliente no existe con el id " + idCliente);
     } else {
+      const numeroBilletera = generarNumeroBilletera(cliente);
       req = matchedData(req);
       const password = await encrypt(req.password);
-      const body = { ...req, password, idCliente, numeroBilletera,idEstado}
+      const body = { ...req, password, idCliente, numeroBilletera, idEstado };
       const [dataBilletera, created] = await billeteraModel.findOrCreate({
         where: {
           numeroBilletera: body.numeroBilletera,
@@ -59,18 +58,16 @@ const createBilletera = async (req, res) => {
       });
       if (!created) {
         return res.status(409).send({ error: "Billetera ya existe" });
-      }
-      else {
+      } else {
         dataBilletera.set("password", undefined, { strict: false });
         const idBilleteraCBITBank = dataBilletera.idBilletera_CBITBank;
-        console.log("id billetera ", idBilleteraCBITBank)
         cliente.update({ idBilleteraCBITBank: idBilleteraCBITBank });
         cliente.save();
         res.status(201).send(dataBilletera);
       }
     }
   } catch (e) {
-    return res.status(500).send({ error: e });
+    return res.status(500).send(e);
   }
 };
 
@@ -125,16 +122,16 @@ const loginCtrl = async (req, res) => {
     const cliente = await clienteModel.findOne({
       where: {
         idTipoIdentificacion: req.idTipoIdentificacion,
-        numeroIdentificacion: req.numeroIdentificacion
-      }
+        numeroIdentificacion: req.numeroIdentificacion,
+      },
     });
     if (!cliente) {
       res.status(404).send("Cliente no existe!!!");
     } else {
       const billetera = await billeteraModel.findOne({
         where: {
-          idBilletera_CBITBank: cliente.idBilleteraCBITBank
-        }
+          idBilletera_CBITBank: cliente.idBilleteraCBITBank,
+        },
       });
       const hashPassword = billetera.password;
       const check = await compare(req.password, hashPassword);
@@ -144,16 +141,26 @@ const loginCtrl = async (req, res) => {
         const data = {
           token: await tokenSign(cliente),
           cliente,
-          billetera
-        }
+          billetera,
+        };
         res.status(200).send(data);
       }
     }
   } catch (error) {
     return res.status(500).send({ error: "error en el login" });
   }
-}
+};
 
+function generarNumeroBilletera(cliente) {
+  let tipoId = cliente.idTipoIdentificacion;
+  let numeroId = cliente.numeroIdentificacion;
+  let numeroBilletera = "" + tipoId + numeroId;
+  let faltantes = 12 - numeroBilletera.length;
+  for (let i = 0; i <= faltantes; i++) {
+    numeroBilletera += Math.round(Math.random() * 9);
+  }
+  return numeroBilletera;
+}
 
 module.exports = {
   getBilletera,
@@ -161,5 +168,5 @@ module.exports = {
   createBilletera,
   updateBilletera,
   deleteBilletera,
-  loginCtrl
+  loginCtrl,
 };
