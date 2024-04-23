@@ -33,6 +33,7 @@ const getBilletera = async (req, res) => {
 const createBilletera = async (req, res) => {
   try {
     req = matchedData(req);
+    console.log("valor llave req ", req);
     const password = await encrypt(req.password);
     const body = { ...req, password }
     console.log("valor num billetera ", body.numeroBilletera);
