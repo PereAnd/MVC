@@ -11,15 +11,15 @@ const Anexos = sequelize.define(
         },
         fotoCliente:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         frenteDocIdentidad:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         respaldoDocIdentidad:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         }
     }
 );
