@@ -34,7 +34,7 @@ const createBilletera = async (req, res) => {
   try {
     req = matchedData(req);
     const password = await encrypt(req.password);
-    const body = { ...req, password, idEstado: 1, numeroBilletera: "000000003" }
+    const body = { ...req, password, idEstado: 1, numeroBilletera: "000000004" }
 
     const [dataBilletera, created] = await billeteraModel.findOrCreate({
       where: {
