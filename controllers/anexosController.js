@@ -68,7 +68,8 @@ const createAnexos = async(req,res)=>{
                 res.status(404).send("cliente con el id "+idCliente+" ,no existe!!!");
             }else{
                 const Anexo = await anexosModel.create(body);
-                const idAnexo = Anexo.idAnexo;
+                const idAnexo = Anexo.idAnexos;
+                console.log("valor id anexo: ",)
                 cliente.update({idAnexos: idAnexo, idCliente: idCliente
                 });
                 cliente.save();
