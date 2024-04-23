@@ -51,6 +51,9 @@ const createBilletera = async (req, res) => {
       }  
       else{
         dataBilletera.set("password", undefined,{strict:false});
+        const idBilleteraCBITBank = dataBilletera.idBilletera_CBITBank;
+        clienteModel.update({idBilletera_CBITBank: idBilleteraCBITBank});
+        clienteModel.save();
         res.status(201).send(dataBilletera);
         
       } 

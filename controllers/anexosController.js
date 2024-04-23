@@ -69,7 +69,8 @@ const createAnexos = async(req,res)=>{
             }else{
                 const Anexo = await anexosModel.create(body);
                 const idAnexo = Anexo.idAnexo;
-                cliente.update({idAnexos: idAnexo});
+                cliente.update({idAnexos: idAnexo, idCliente: idCliente
+                });
                 cliente.save();
                 res.status(200).send(Anexo);
             }
