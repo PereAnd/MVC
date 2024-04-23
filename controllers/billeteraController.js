@@ -52,6 +52,7 @@ const createBilletera = async (req, res) => {
       else{
         dataBilletera.set("password", undefined,{strict:false});
         res.status(201).send(dataBilletera);
+        
       } 
     
   } catch (error) {

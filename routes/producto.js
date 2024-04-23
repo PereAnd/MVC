@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middleware/session");
 
 const {
   getProducto,
@@ -10,11 +11,11 @@ const {
   getProductsByUser,
 } = require("../controllers/productoController");
 
-router.get("/:id", getProducto);
+router.get("/:id", authMiddleware, getProducto);
 router.get("/", getProductos);
-router.get("/user/:id", getProductsByUser);
-router.post("/", createProducto);
-router.patch("/:id", updateProducto);
-router.delete("/:id", deleteProducto);
+router.get("/user/:id", authMiddleware, getProductsByUser);
+router.post("/", authMiddleware, createProducto);
+router.patch("/:id", authMiddleware, updateProducto);
+router.delete("/:id", authMiddleware, deleteProducto);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middleware/session");
 
 const {
   getTransaccion,
@@ -9,10 +10,10 @@ const {
   getTransaccionesByClientId
 } = require("../controllers/TransaccionController");
 
-router.get("/:id", getTransaccion);
+router.get("/:id", authMiddleware, getTransaccion);
 router.get("/", getTransacciones);
-router.get("/product/:id", getTransactionsByProductId);
-router.get("/client/:id", getTransaccionesByClientId);
+router.get("/product/:id", authMiddleware, getTransactionsByProductId);
+router.get("/client/:id", authMiddleware, getTransaccionesByClientId);
 router.post("/", createTransaccion);
 
 module.exports = router;

@@ -43,7 +43,7 @@ const createCliente = async (req, res) => {
     return res
       .status(400)
       .send({
-        error: "El número de identificación ya se encuentra registrado",
+        error: "El número de identificación ya se encuentra registrado, por favor inicie sesión!!!",
       });
   } else {
     const dataCliente = await clienteModel.create(req);

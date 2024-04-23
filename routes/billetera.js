@@ -13,7 +13,7 @@ const {
 router.get('/', getBilleteras);
 router.get('/:id',authMiddleware, getBilletera);
 router.post('/', validatorRegisterBilleteraItem,createBilletera);
-router.patch('/:id', updateBilletera);
+router.patch('/:id', authMiddleware, updateBilletera);//en caso de password validamos token
 router.delete('/:id', deleteBilletera);
 
 module.exports = router;
