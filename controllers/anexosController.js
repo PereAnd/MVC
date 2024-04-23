@@ -1,4 +1,4 @@
-const { anexosModel } = require("../models/indexModel");
+const { anexosModel, clienteModel } = require("../models/indexModel");
 
 /**
  * Obtener estado por medio de un Id
@@ -58,8 +58,21 @@ const createAnexos = async(req,res)=>{
                 message:"parámetros de creación de Anexos, vacios!!!"
             });
         }else{
-            const Anexo = await anexosModel.create(body);
-            res.status(200).send(Anexo);
+            const idCliente = body.idCliente;
+            const cliente =await clienteModel.findOne({
+                where: {
+                    idCliente: idCliente
+                }
+            })
+            if(!cliente){
+                res.status(404).send("cliente con el id "+idCliente+" ,no existe!!!");
+            }else{
+                const Anexo = await anexosModel.create(body);
+                const idAnexo = Anexo.idAnexo;
+                cliente.update({idAnexos: idAnexo});
+                cliente.save();
+                res.status(200).send(Anexo);
+            }
         }
     }catch(e){
         res.status(404).send({
