@@ -26,6 +26,10 @@ const EntidadFinanciera = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    apiActiva: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    }
   },
   {
     timestamps: true,
