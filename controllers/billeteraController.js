@@ -156,7 +156,7 @@ function generarNumeroBilletera(cliente) {
   let numeroId = cliente.numeroIdentificacion;
   let numeroBilletera = "" + tipoId + numeroId;
   let faltantes = 12 - numeroBilletera.length;
-  for (let i = 0; i <= faltantes; i++) {
+  for (let i = 0; i < faltantes; i++) {
     numeroBilletera += Math.round(Math.random() * 9);
   }
   return numeroBilletera;
