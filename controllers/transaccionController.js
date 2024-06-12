@@ -117,18 +117,14 @@ const getTransaccionesByClientId = async (req, res) => {
 const createTransaccion = async (req, res) => {
   try {
     const { body } = req;
-    if (Object.keys(body).length == 0) {
-      res.status(404).send({
-        message: "parámetros de creación de Transacción, vacios!!!",
-      });
-    } else {
-      const Transaccion = await transaccionModel.create(body);
-      res.status(200).send(Transaccion);
-    }
+    let newTransaccion = {...body, IP: req.ip || req.socket.remoteAddress};
+    const response = await transaccionModel.create(newTransaccion);
+    res.status(200).send(response);
+    return;
   } catch (e) {
     res.status(404).send({
       error: e,
-      message: "No se pudo crear la Transacción!!!",
+      message: "Error al crear la transacción",
     });
   }
 };
