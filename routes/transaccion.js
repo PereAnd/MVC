@@ -8,7 +8,7 @@ const {
   createTransaccion,
   getTransactionsByProductId,
   getTransaccionesByClientId
-} = require("../controllers/TransaccionController");
+} = require("../controllers/transaccionController");
 
 router.get("/:id", authMiddleware, getTransaccion);
 router.get("/", getTransacciones);
