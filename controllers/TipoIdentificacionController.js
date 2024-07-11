@@ -68,7 +68,7 @@ const createTipoIden = async (req, res) => {
     };
   }catch(e){
 
-      res.status(404).send({error:'No se pudo crear el tipo entidad financiera. '+e})
+      res.status(404).send({error:'No se pudo crear el tipo identificación. '+e})
   }
 };
 

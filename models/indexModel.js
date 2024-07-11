@@ -21,7 +21,8 @@ const models ={
     tipoProductoModel: require('./tipoProductoModel'),
     tipoTransaccionModel: require('./tipoTransaccionModel'),
     transaccionModel: require('./transaccionModel'),
-    tycModel: require('./tycModel')
+    tycModel: require('./tycModel'),
+    tipoClienteModel: require('./tipoClienteModel'),
 }
 
 module.exports = models;
