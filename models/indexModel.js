@@ -1,3 +1,5 @@
+const SubtipoProducto = require('./subtipoProductoModel');
+
 const models ={
     anexosModel: require('./anexosModel'),
     billeteraModel: require('./billeteraCBITModel'),
@@ -23,6 +25,7 @@ const models ={
     transaccionModel: require('./transaccionModel'),
     tycModel: require('./tycModel'),
     tipoClienteModel: require('./tipoClienteModel'),
+    subtipoProductoModel: require('./subtipoProductoModel'),
 }
 
 module.exports = models;
