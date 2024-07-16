@@ -22,6 +22,10 @@ const BilleteraCBITBank = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    idTyC: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,
