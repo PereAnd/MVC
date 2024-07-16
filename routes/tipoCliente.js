@@ -8,8 +8,8 @@ const {
     deleteTipoPers,
 } = require("../controllers/tipoClienteController");
 
-router.get('/', getTipoPers);
-router.get('/:id', getTiposPers);
+router.get('/', getTiposPers);
+router.get('/:id', getTipoPers);
 router.post('/', createTipoPers);
 router.patch('/:id', updateTipoPers);
 router.delete('/:id', deleteTipoPers);
