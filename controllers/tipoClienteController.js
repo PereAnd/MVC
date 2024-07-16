@@ -91,7 +91,7 @@ const updateTipoPers = async (res, req) => {
             tipoClien.nombre = body.nombre;
             tipoClien.codigo = body.codigo;
             await tipoClien.save();
-            res.status(200).send(tipoIden)({
+            res.status(200).send(tipoClien)({
                 message:"El tipo de cliente ha sido modificado."
             });
         }
