@@ -26,4 +26,5 @@ const SubtipoProducto = sequelize.define(
         timestamps: true
     }
 );
+
 module.exports = SubtipoProducto;

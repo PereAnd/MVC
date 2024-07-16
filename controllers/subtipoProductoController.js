@@ -37,6 +37,7 @@ const getSubtipoProd = async (req, res) => {
     }
 };
 
+
 const createSubtipoProd = async (req, res) => {
     const nombreSubtipoProds = req.body.nombreSubtipoProds;
     const nombreSubtipoProdsMay=nombreSubtipoProds.toUpperCase();
