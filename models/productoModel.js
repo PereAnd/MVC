@@ -33,7 +33,7 @@ const Producto = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        numeroProducto:{
+        numeroCuenta:{
             type: DataTypes.STRING,
             allowNull: false
         }        
