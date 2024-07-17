@@ -56,20 +56,20 @@ const createProducto = async (req, res) => {
   const {
     usuario,
     password,
-    numeroProducto,
+    numeroCuenta,
     idEstado,
     idEntidadFinanciera,
-    idTipo_Producto,
+    idSubtipo_Producto,
     idBilletera_CBITBank,
   } = req.body;
   try {
     if (
       !usuario ||
       !password ||
-      !numeroProducto ||
+      !numeroCuenta ||
       !idEstado ||
       !idEntidadFinanciera ||
-      !idTipo_Producto ||
+      !idSubtipo_Producto ||
       !idBilletera_CBITBank
     )
       return res.status(400).send({ error: "Datos incompletos" });
@@ -77,15 +77,15 @@ const createProducto = async (req, res) => {
       const [Producto, created] = await productoModel.findOrCreate({
         where: {
           idEntidadFinanciera: idEntidadFinanciera,
-          numeroProducto: numeroProducto,
+          numeroCuenta: numeroCuenta,
         },
         defaults: {
           usuario: usuario,
           password: password,
-          numeroProducto: numeroProducto,
+          numeroCuenta: numeroCuenta,
           idEntidadFinanciera: idEntidadFinanciera,
           idEstado: idEstado,
-          idTipo_Producto: idTipo_Producto,
+          idSubtipo_Producto: idSubtipo_Producto,
           idBilletera_CBITBank: idBilletera_CBITBank,
         },
       });
@@ -110,14 +110,14 @@ const updateProducto = async (req, res) => {
     if (Producto) {
       if (Object.keys(body).length === 0)
         return res.status(400).send({ error: "No hay datos para actualizar" });
-      else if (body.numeroProducto || body.idEntidadFinanciera) {
+      else if (body.numeroCuenta || body.idEntidadFinanciera) {
         const ProductoExists = await productoModel.findOne({
           where: {
             [Op.or]: [
               {
                 idEntidadFinanciera:
                   body.idEntidadFinanciera || Producto.idEntidadFinanciera,
-                numeroProducto: body.numeroProducto || Producto.numeroProducto,
+                numeroCuenta: body.numeroCuenta || Producto.numeroCuenta,
               },
             ],
           },
