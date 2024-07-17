@@ -126,6 +126,6 @@ module.exports = {
     getSubtiposProds,
     getSubtipoProd,
     createSubtipoProd,
-    updateSubtipoProd,
+    // updateSubtipoProd,
     deleteSubtipoProd,
 };
