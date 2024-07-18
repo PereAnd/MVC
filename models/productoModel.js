@@ -9,7 +9,7 @@ const Producto = sequelize.define(
             autoIncrement: true,
             primaryKey: true
         },
-        idTipo_Producto:{
+        idSubtipo_Producto:{
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -33,7 +33,7 @@ const Producto = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        numeroProducto:{
+        numeroCuenta:{
             type: DataTypes.STRING,
             allowNull: false
         }        

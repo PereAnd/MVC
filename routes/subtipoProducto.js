@@ -14,4 +14,5 @@ router.post('/', createSubtipoProd);
 // router.patch('/:id', updateSubtipoProd);
 router.delete('/:id', deleteSubtipoProd);
 
+
 module.exports = router;
