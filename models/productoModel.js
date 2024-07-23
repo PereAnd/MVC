@@ -19,7 +19,7 @@ const Producto = sequelize.define(
         },
         idBilletera_CBITBank:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         idEstado:{
             type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ const Producto = sequelize.define(
         },
         idDetalles_SolicitudP:{
             type:DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         usuario:{
             type: DataTypes.STRING,
