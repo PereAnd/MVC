@@ -31,15 +31,15 @@ const Producto = sequelize.define(
         },
         usuario:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         password:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         numeroCuenta:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         }, 
         tasaInteres:{
             type: DataTypes.INTEGER,
