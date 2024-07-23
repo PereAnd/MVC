@@ -25,6 +25,10 @@ const Producto = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        idDetalles_SolicitudP:{
+            type:DataTypes.INTEGER,
+            allowNull: false
+        },
         usuario:{
             type: DataTypes.STRING,
             allowNull: false
@@ -36,26 +40,42 @@ const Producto = sequelize.define(
         numeroCuenta:{
             type: DataTypes.STRING,
             allowNull: false
-        }        
+        }, 
+        tasaInteres:{
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        plazo:{
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },    
+        montoCredito:{
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        cuotaMensual:{
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        seguroVida:{
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        tasaEfectivaAnual:{
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        tasaMensualVencida:{
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        vtua:{
+            type: DataTypes.STRING,
+            allowNull: true
+        }    
     },
     {
         timestamps: true
     }
 );
-/*
-function obtenerProducto (nProducto){
-    //falta llamar objeto persistencia y pasarle el query
-    let query = "SELECT * FROM M_Producto c WHERE c.numeroProducto =="+nProducto+"";
-    return query;
-}
-    
-function crearProducto(usu, pass, nProducto, eProducto){
-    const sql = `INSERT INTO M_Producto (idProducto, usuario, password, numeroProducto, estadoProducto) VALUES (${null}, "${usu}","${pass}","${nProducto}","${eProducto}")`;
-    database.conectar.query(sql, function(err, result, filed){
-        if(err)throw err
-        console.log(result);
-    });
-}
-*/
-   // export {obtenerProducto,crearCuenta}
 module.exports = Producto;

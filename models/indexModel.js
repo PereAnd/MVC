@@ -1,3 +1,4 @@
+const DetalleSolicitud = require('./detalleSolicitudModel');
 const SubtipoProducto = require('./subtipoProductoModel');
 
 const models ={
@@ -6,6 +7,7 @@ const models ={
     ciudadModel: require("./ciudadModel"),
     clienteModel: require('./clienteModel'),
     departamentoModel: require('./departamentoModel'),
+    detalleSolicitudModel: require('./detalleSolicitudModel'),
     ecommerceModel: require('./ecommerceModel'),
     entidadFModel: require('./entidadFinancieraModel'),
     entornoTrabajoModel: require('./entornoTrabajoModel'),
@@ -26,6 +28,7 @@ const models ={
     tycModel: require('./tycModel'),
     tipoClienteModel: require('./tipoClienteModel'),
     subtipoProductoModel: require('./subtipoProductoModel'),
+    
 }
 
 module.exports = models;

@@ -76,32 +76,32 @@ const createSubtipoProd = async (req, res) => {
     }
 };
 
-// const updateSubtipoProd = async (res, req) => {
-//     try{
-//         const id = req.params.id;
-//         const subtipoProd = await subtipoProductoModel.findOne({
-//             where: {
-//                 idSubtipo_Producto: id,
-//             },
-//         });
-//         if (!subtipoProd){
-//             res.status(400).send({
-//                 error: "El subtipo de producto no ha sido encontrado."
-//             });
-//         }else{
-//             let { body } = req.params.body;
-//             subtipoProd.nombre = body.nombre;
-//             subtipoProd.codigo = body.codigo;
-//             subtipoProd.idTipo_Producto = body.idTipo_Producto;
-//             await subtipoProd.save();
-//             res.status(200).send(subtipoProd)({
-//                 message:"El subtipo de producto ha sido modificado."
-//             });
-//         }
-//     }catch(e){
-//         res.status(404).send(e);
-//     }
-// };
+ const updateSubtipoProd = async (res, req) => {
+     try{
+         const id = req.params.id;
+         const subtipoProd = await subtipoProductoModel.findOne({
+             where: {
+                 idSubtipo_Producto: id,
+             },
+         });
+         if (!subtipoProd){
+             res.status(400).send({
+                 error: "El subtipo de producto no ha sido encontrado."
+             });
+         }else{
+             let { body } = req.params.body;
+             subtipoProd.nombre = body.nombre;
+             subtipoProd.codigo = body.codigo;
+             subtipoProd.idTipo_Producto = body.idTipo_Producto;
+             await subtipoProd.save();
+             res.status(200).send(subtipoProd)({
+                 message:"El subtipo de producto ha sido modificado."
+             });
+         }
+     }catch(e){
+         res.status(404).send(e);
+     }
+ };
 
 const deleteSubtipoProd = async (req, res) => {
     try{
