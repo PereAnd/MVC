@@ -39,8 +39,8 @@ const getSubtipoProd = async (req, res) => {
 
 
 const createSubtipoProd = async (req, res) => {
-    const nombreSubtipoProds = req.body.nombreSubtipoProds;
-    const nombreSubtipoProdsMay=nombreSubtipoProds.toUpperCase();
+    const nombreSubtipoProds = req.body.nombre;
+    //const nombreSubtipoProdsMay=nombreSubtipoProds.toUpperCase();
     const codigo=req.body.codigo;
     const idTipoProducto=req.body.idTipo_Producto;
     try{
@@ -54,21 +54,21 @@ const createSubtipoProd = async (req, res) => {
                 {
                     where:{
                         [Op.or]:[
-                            { nombre: nombreSubtipoProdsMay},
+                            { nombre: nombreSubtipoProds},
                             { codigo: codigo }
                         ]},
                         defaults:{
-                            nombre: nombreSubtipoProdsMay,
+                            nombre: nombreSubtipoProds,
                             codigo: codigo,
                             idTipo_Producto: idTipoProducto
                         }
                 })
                 console.log(subtipoProds);
                 if(Created==false){
-                    res.status(409).send({error: "El subtipo de producto '"+nombreSubtipoProdsMay+"' ya existe, con código: "+codigo})
+                    res.status(409).send({error: "El subtipo de producto '"+nombreSubtipoProds+"' ya existe, con código: "+codigo})
                 }   else{
                     console.log(Created)
-                    res.status(200).send({mensaje: "El subtipo de producto '"+nombreSubtipoProdsMay+"' ha sido creado, con código: "+codigo})
+                    res.status(200).send({mensaje: "El subtipo de producto '"+nombreSubtipoProds+"' ha sido creado, con código: "+codigo})
                 }
         };
     }catch(e){

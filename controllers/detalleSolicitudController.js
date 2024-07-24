@@ -1,6 +1,8 @@
 const e = require("cors");
 const {Op}= require("sequelize")
-const { detalleSolicitudModel } = require("../models/indexModel");
+const { detalleSolicitudModel, clienteModel } = require("../models/indexModel");
+const { matchedData } = require("express-validator");
+const error = require("../models/errorModel");
 
 /**
  * Obtiene todos los registros de Detalles_SolicitudP
@@ -65,13 +67,14 @@ const getDetalleSolicitudes = async (req, res) => {
                     {
                         where:{
                             [Op.or]:[
-                                { actividadLaboral: activLabDetalle},
-                                { actividadEconomica: activEconoDetalle },
-                                { nombreEmpresa: nombreEmpresa},
-                                { ingresoMensual: ingresoMensual},
-                                { ciudadDomicilio: ciudadDomicilio},
+                                //{ idDetalles_SolicitudP: idDetalleSolicitud},
+                                //{ actividadLaboral: activLabDetalle},
+                                //{ actividadEconomica: activEconoDetalle },
+                                //{ nombreEmpresa: nombreEmpresa},
+                                //{ ingresoMensual: ingresoMensual},
+                                //{ ciudadDomicilio: ciudadDomicilio},
                                 { direccionDomicilio: direccionDomicilio},
-                                { aceptaTyC: aceptaTyC}
+                                //{ aceptaTyC: aceptaTyC}
                             ]},
                             defaults:{
                                 actividadLaboral:activLabDetalle,
@@ -81,15 +84,15 @@ const getDetalleSolicitudes = async (req, res) => {
                                 ciudadDomicilio: ciudadDomicilio,
                                 direccionDomicilio: direccionDomicilio,
                                 aceptaTyC: aceptaTyC,
-                                idDetalles_SolicitudP: idDetalleSolicitud,
+                                //idDetalles_SolicitudP: idDetalleSolicitud,
                             }
                     })
                     console.log("Valor detalle solicitud: ",DetalleSolicitud);
                     if(Created==false){
-                        res.status(409).send({error: "El detalle de solicitud #'"+idDetalleSolicitud+"' ya existe"})
+                        res.status(409).send({error: "El detalle de solicitud ya existe"})
                     }   else{
                         console.log(Created)
-                        res.status(200).send({mensaje: "El detalle de solicitud #'"+idDetalleSolicitud+"' ha sido creado"})
+                        res.status(200).send({mensaje: "El detalle de solicitud ha sido creado"})
                     }
             };
         }catch(e){
