@@ -16,6 +16,29 @@ const getEntidadFinanciera = async (req, res) => {
   if (!data) return res.status(404).send({ error: "Entidad no encontrada" });
   res.send(data);
 };
+const getEntidadFinancieraByName = async (req, res) => {
+  try {
+    // Extrae el nombre del cuerpo de la solicitud
+    const { nombre } = req.body;
+    console.log("nombre de la entidad ",nombre);
+    // Usa findOne con el filtro adecuado
+    const data = await entidadFModel.findOne({
+      where: {
+        nombre: nombre,
+      },
+    });
+    // Verifica si se encontró algún registro
+    if (!data) {
+      return res.status(404).send({ error: "Entidad no encontrada" });
+    }
+    // Envía el registro encontrado
+    res.send(data);
+  } catch (error) {
+    // Maneja errores inesperados
+    console.error(error);
+    res.status(500).send({ error: "Error interno del servidor" });
+  }
+};
 
 const createEntidadFinanciera = async (req, res) => {
     const { body } = req;
@@ -25,21 +48,6 @@ const createEntidadFinanciera = async (req, res) => {
         message:"No existe body en al petición!!!"
       });
     }else{
-  /*    const { nit } = body;
-      console.log(nit);
-      entidadF = await entidadFModel.findOne({
-        where: {
-          nit: nit
-        }
-      });
-      if(!entidadF){
-        entidadF = await entidadFModel.create(body);
-        res.status(200).send(entidadF);
-      }else{
-        res.status(400).send({
-          message:"No se puede crear, entidad financiera ya existe!!!"
-        });
-      }*/
       const nombreE=req.body.nombre;
       const nitE=req.body.nit;
       console.log("entidad F "+nombreE+" con nit "+nitE);
@@ -96,6 +104,7 @@ const deleteEntidadFinanciera = async (req, res) => {
 module.exports = {
   getEntidadesFinancieras,
   getEntidadFinanciera,
+  getEntidadFinancieraByName,
   createEntidadFinanciera,
   updateEntidadFinanciera,
   deleteEntidadFinanciera,

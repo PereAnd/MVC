@@ -8,6 +8,7 @@ const { anexosModel, clienteModel } = require("../models/indexModel");
 const getAnexo= async(req,res)=>{
     try{
         const idAnexoC = req.params.id;
+        console.log("id Anexo "+idAnexoC);
         const Anexo = await anexosModel.findOne({
             where:{
                 idAnexos:idAnexoC

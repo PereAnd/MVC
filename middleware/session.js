@@ -3,6 +3,7 @@ const {verityToken} = require("../utils/handleJWT")
 
 const authMiddleware = async(req, res, next)=>{
     try{
+        console.log("authorizacion ",req.headers.authorization);
         if(!req.headers.authorization || req.headers.authorization == null){
             res.status(401).send("Necesitas un token de sesión!!!");
         }else{
