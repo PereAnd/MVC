@@ -61,6 +61,15 @@ const createProducto = async (req, res) => {
     idEntidadFinanciera,
     idSubtipo_Producto,
     idBilletera_CBITBank,
+    tasaInteres,
+    plazo,
+    montoCredito,
+    cuotaMensual,
+    seguroVida,
+    tasaEfectivaAnual,
+    tasaMensualVencida,
+    vtua
+
   } = req.body;
   try {
     if (
@@ -70,7 +79,15 @@ const createProducto = async (req, res) => {
       !idEstado ||
       !idEntidadFinanciera ||
       !idSubtipo_Producto ||
-      !idBilletera_CBITBank
+      !idBilletera_CBITBank ||
+      !tasaInteres ||
+      !plazo ||
+      !montoCredito ||
+      !cuotaMensual ||
+      !seguroVida ||
+      !tasaEfectivaAnual ||
+      !tasaMensualVencida ||
+      !vtua
     )
       return res.status(400).send({ error: "Datos incompletos" });
     else {
@@ -87,6 +104,15 @@ const createProducto = async (req, res) => {
           idEstado: idEstado,
           idSubtipo_Producto: idSubtipo_Producto,
           idBilletera_CBITBank: idBilletera_CBITBank,
+          tasaInteres : tasaInteres,
+          plazo: plazo,
+          montoCredito: montoCredito,
+          cuotaMensual: cuotaMensual,
+          seguroVida: seguroVida,
+          tasaEfectivaAnual: tasaEfectivaAnual,
+          tasaMensualVencida: tasaMensualVencida,
+          vtua: vtua
+
         },
       });
       if (!created)
