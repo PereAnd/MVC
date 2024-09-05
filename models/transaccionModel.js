@@ -21,6 +21,10 @@ const Transaccion = sequelize.define(
     idProducto: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },  
+    idOrdenCompra: {
+      type: DataTypes.INTEGER,
+      alowNull: true,
     },
     IP: {
       type: DataTypes.STRING,

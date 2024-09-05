@@ -19,13 +19,15 @@ const OrdenCompra = sequelize.define(
         },
         codigoOTP:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         numeroAprobacion:{
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true
         },
         observaciones:{
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true
         },
         idCliente:{
             type: DataTypes.INTEGER,
