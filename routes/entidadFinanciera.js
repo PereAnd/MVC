@@ -6,8 +6,10 @@ const {
   createEntidadFinanciera,
   updateEntidadFinanciera,
   deleteEntidadFinanciera,
+  getEntidadFinancieraByName,
 } = require("../controllers/entidadFinancieraController");
 
+router.post('/find', getEntidadFinancieraByName);  // Rutas específicas primero
 router.get('/', getEntidadesFinancieras);
 router.get('/:id', getEntidadFinanciera);
 router.post('/', createEntidadFinanciera);
