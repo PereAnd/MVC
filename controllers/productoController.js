@@ -98,6 +98,16 @@ const createProducto = async (req, res) => {
   }
 };
 
+const createProductoCredit = async (req, res) => {
+  try {
+    const { body } = req;
+    const resultCredit = await productoModel.create(body);
+    res.status(200).send("Se ha creado el credito en la tabla producto")
+  } catch (error) {
+    return res.status(500).send(error)
+  }
+}
+
 const updateProducto = async (req, res) => {
   const id = req.params.id;
   const { body } = req;
@@ -154,6 +164,7 @@ module.exports = {
   getProductos,
   getProductsByUser,
   createProducto,
+  createProductoCredit,
   updateProducto,
   deleteProducto,
 };
